@@ -7,7 +7,6 @@
 
   <title>SportsCup</title>
 
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -22,6 +21,7 @@
       --muted: #9ea1a8;
       --green: #48c978;
       --red: #ff5050;
+      --blue: #4285f4;
     }
 
     * {
@@ -42,7 +42,8 @@
     }
 
     button,
-    input {
+    input,
+    select {
       font: inherit;
     }
 
@@ -52,6 +53,14 @@
 
     .hidden {
       display: none !important;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 13px;
     }
 
     .app {
@@ -71,15 +80,73 @@
       padding: 28px 20px;
     }
 
-    .muted {
+    .page-title {
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    .brand-small {
+      color: var(--orange);
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 900;
+      margin: 28px 0 15px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
       color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 7px;
     }
 
-    .small {
-      font-size: 13px;
+    .input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: white;
+      outline: none;
+      padding: 15px;
+      border-radius: 14px;
     }
 
-    /* ================= LOGIN ================= */
+    .input:focus {
+      border-color: var(--orange);
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      background: var(--orange);
+      color: white;
+      padding: 15px 18px;
+      font-weight: 900;
+    }
+
+    .secondary-btn {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
+      color: white;
+      padding: 15px 18px;
+      font-weight: 800;
+    }
+
+    /* AUTH */
 
     .auth-screen {
       min-height: 100vh;
@@ -87,8 +154,13 @@
       align-items: center;
       justify-content: center;
       padding: 26px;
+
       background:
-        radial-gradient(circle at top right, rgba(255,90,0,.17), transparent 35%),
+        radial-gradient(
+          circle at top right,
+          rgba(255,90,0,.17),
+          transparent 35%
+        ),
         var(--bg);
     }
 
@@ -109,7 +181,6 @@
 
     .auth-box h1 {
       font-size: 36px;
-      letter-spacing: -1px;
       margin-bottom: 8px;
     }
 
@@ -143,73 +214,6 @@
       color: white;
     }
 
-    .field {
-      margin-bottom: 14px;
-    }
-
-    .field label {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 7px;
-    }
-
-    .input {
-      width: 100%;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: white;
-      outline: none;
-      padding: 15px;
-      border-radius: 14px;
-    }
-
-    .input:focus {
-      border-color: var(--orange);
-    }
-
-    .primary-btn {
-      width: 100%;
-      border: 0;
-      border-radius: 15px;
-      background: var(--orange);
-      color: white;
-      padding: 15px 18px;
-      font-weight: 900;
-      font-size: 16px;
-    }
-
-    .secondary-btn {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      background: var(--card);
-      color: white;
-      padding: 15px 18px;
-      font-weight: 800;
-    }
-
-    .google-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .google-logo {
-      width: 19px;
-      height: 19px;
-      background: white;
-      color: #333;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 12px;
-    }
-
     .separator {
       display: flex;
       align-items: center;
@@ -227,12 +231,32 @@
       background: var(--border);
     }
 
+    .google-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .google-logo {
+      width: 20px;
+      height: 20px;
+      background: white;
+      color: #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
     .auth-message {
+      display: none;
       padding: 12px;
       border-radius: 12px;
       margin-bottom: 14px;
       font-size: 13px;
-      display: none;
     }
 
     .auth-message.error {
@@ -249,10 +273,10 @@
       color: #8ee7ae;
     }
 
-    /* ================= HEADER ================= */
+    /* DISCOVER */
 
     .discover-header {
-      padding: 34px 20px 7px;
+      padding: 32px 20px 7px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -264,13 +288,6 @@
       font-size: 17px;
     }
 
-    .page-title {
-      font-size: 42px;
-      letter-spacing: -1.5px;
-      line-height: 1;
-      font-weight: 900;
-    }
-
     .alert-button {
       width: 48px;
       height: 48px;
@@ -279,6 +296,7 @@
       background: var(--card);
       color: white;
       position: relative;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -294,14 +312,14 @@
       position: absolute;
       top: 8px;
       right: 8px;
+
       width: 9px;
       height: 9px;
+
       background: var(--orange);
       border-radius: 50%;
       border: 2px solid var(--card);
     }
-
-    /* ================= FILTER ================= */
 
     .filters {
       display: flex;
@@ -319,6 +337,7 @@
       border: 1px solid var(--border);
       background: var(--card);
       color: white;
+
       padding: 12px 18px;
       border-radius: 999px;
       font-weight: 800;
@@ -331,24 +350,31 @@
       color: var(--orange-light);
     }
 
-    /* ================= DISCOVER ================= */
-
     .discover-content {
       padding: 0 20px;
     }
 
     .featured {
       min-height: 310px;
+
       border-radius: 24px;
       border: 1px solid var(--border);
+
       overflow: hidden;
       display: flex;
       align-items: flex-end;
+
       position: relative;
       cursor: pointer;
+
       background:
-        linear-gradient(to top, rgba(5,6,8,.98), rgba(5,6,8,.1)),
+        linear-gradient(
+          to top,
+          rgba(5,6,8,.98),
+          rgba(5,6,8,.1)
+        ),
         url("https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=1000&q=85");
+
       background-size: cover;
       background-position: center;
     }
@@ -357,10 +383,12 @@
       position: absolute;
       top: 18px;
       left: 18px;
+
       padding: 10px 14px;
+
       border-radius: 10px;
       background: var(--orange);
-      color: white;
+
       font-size: 12px;
       font-weight: 900;
       letter-spacing: 1px;
@@ -373,7 +401,6 @@
 
     .featured-content h2 {
       font-size: 30px;
-      line-height: 1.05;
       margin-bottom: 15px;
     }
 
@@ -386,19 +413,12 @@
     .stat-label {
       color: var(--muted);
       font-size: 11px;
-      letter-spacing: 1px;
       margin-bottom: 3px;
     }
 
     .stat-value {
       font-size: 20px;
       font-weight: 900;
-    }
-
-    .section-title {
-      font-size: 22px;
-      font-weight: 900;
-      margin: 30px 0 16px;
     }
 
     .competition-list {
@@ -411,10 +431,13 @@
       display: flex;
       align-items: center;
       gap: 14px;
+
       padding: 14px;
+
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
+
       cursor: pointer;
     }
 
@@ -422,8 +445,10 @@
       width: 68px;
       height: 80px;
       flex: 0 0 68px;
+
       background: var(--card2);
       border-radius: 15px;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -436,8 +461,8 @@
 
     .date-box span {
       color: var(--orange);
-      letter-spacing: 2px;
       font-size: 11px;
+      letter-spacing: 2px;
       font-weight: 900;
     }
 
@@ -468,56 +493,23 @@
       font-size: 28px;
     }
 
-    /* ================= BOTTOM NAV ================= */
-
-    .bottom-nav {
-      position: fixed;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 480px;
-      height: 82px;
-      background: #15171c;
-      border-top: 1px solid #242830;
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      z-index: 50;
-    }
-
-    .nav-item {
-      background: transparent;
-      border: 0;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .nav-item svg {
-      width: 22px;
-      height: 22px;
-      stroke: currentColor;
-    }
-
-    .nav-item.active {
-      color: var(--orange);
-    }
-
-    /* ================= TOURNAMENT DETAIL ================= */
+    /* TOURNAMENT */
 
     .tournament-hero {
       min-height: 420px;
+
       position: relative;
       display: flex;
       align-items: flex-end;
+
       background:
-        linear-gradient(to top, var(--bg) 5%, rgba(11,13,15,.2) 72%),
+        linear-gradient(
+          to top,
+          var(--bg) 5%,
+          rgba(11,13,15,.2) 72%
+        ),
         url("https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=1000&q=85");
+
       background-size: cover;
       background-position: center;
     }
@@ -526,12 +518,16 @@
       position: absolute;
       top: 30px;
       left: 20px;
+
       width: 49px;
       height: 49px;
+
       border-radius: 50%;
       border: 1px solid var(--border);
+
       background: rgba(10,12,15,.72);
       color: white;
+
       font-size: 29px;
     }
 
@@ -539,9 +535,12 @@
       position: absolute;
       top: 40px;
       right: 20px;
+
       background: var(--orange);
+
       border-radius: 999px;
       padding: 11px 17px;
+
       font-weight: 900;
     }
 
@@ -551,7 +550,6 @@
 
     .tournament-heading h1 {
       font-size: 38px;
-      line-height: 1;
       margin-bottom: 13px;
     }
 
@@ -567,8 +565,10 @@
 
     .detail-stat {
       min-height: 125px;
+
       border-radius: 18px;
       padding: 18px;
+
       background: var(--card);
       border: 1px solid var(--border);
     }
@@ -580,6 +580,7 @@
 
     .detail-stat .label {
       margin-top: 15px;
+
       color: var(--muted);
       font-size: 11px;
       letter-spacing: 1px;
@@ -594,9 +595,12 @@
     .tabs {
       display: grid;
       grid-template-columns: repeat(4,1fr);
+
       margin-top: 18px;
+
       border: 1px solid var(--border);
       background: var(--card);
+
       border-radius: 16px;
       padding: 5px;
       gap: 3px;
@@ -605,9 +609,12 @@
     .tab-button {
       border: 0;
       border-radius: 11px;
+
       background: transparent;
       color: var(--muted);
+
       padding: 12px 3px;
+
       font-size: 11px;
       font-weight: 900;
     }
@@ -634,7 +641,6 @@
     .detail-label {
       color: var(--muted);
       font-size: 11px;
-      letter-spacing: 1.2px;
       margin-bottom: 5px;
     }
 
@@ -648,6 +654,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
+
       padding: 15px;
       margin-bottom: 11px;
     }
@@ -666,9 +673,12 @@
     .join-bar {
       position: sticky;
       bottom: 0;
+
       padding: 15px 20px;
+
       background: #17191f;
       border-top: 1px solid var(--border);
+
       display: flex;
       align-items: center;
       gap: 15px;
@@ -686,49 +696,93 @@
     .join-price span {
       color: var(--muted);
       font-size: 10px;
-      letter-spacing: 1px;
     }
 
     .join-button {
       border: 0;
       border-radius: 15px;
+
       padding: 15px 19px;
+
       background: var(--orange);
       color: white;
+
       font-weight: 900;
     }
 
-    /* ================= CALENDAR ================= */
+    /* CALENDAR */
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .calendar-open-button {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: white;
+
+      border-radius: 14px;
+      padding: 11px 13px;
+
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .calendar-open-button svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+    }
 
     .calendar-intro {
       margin: 10px 0 24px;
-      line-height: 1.5;
     }
 
     .calendar-card {
       height: 205px;
       margin-bottom: 16px;
+
       border-radius: 22px;
       overflow: hidden;
+
       position: relative;
+
       cursor: pointer;
       border: 1px solid var(--border);
+
       display: flex;
       align-items: flex-end;
     }
 
     .calendar-card.football {
       background:
-        linear-gradient(to top, rgba(5,6,8,.95), rgba(5,6,8,.15)),
+        linear-gradient(
+          to top,
+          rgba(5,6,8,.95),
+          rgba(5,6,8,.15)
+        ),
         url("https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=900&q=80");
+
       background-size: cover;
       background-position: center;
     }
 
     .calendar-card.padel {
       background:
-        linear-gradient(to top, rgba(5,6,8,.96), rgba(5,6,8,.15)),
+        linear-gradient(
+          to top,
+          rgba(5,6,8,.96),
+          rgba(5,6,8,.15)
+        ),
         url("https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=900&q=80");
+
       background-size: cover;
       background-position: center;
     }
@@ -737,9 +791,12 @@
       position: absolute;
       top: 16px;
       left: 16px;
+
       background: var(--orange);
+
       padding: 9px 12px;
       border-radius: 10px;
+
       font-size: 12px;
       font-weight: 900;
     }
@@ -754,57 +811,206 @@
       margin-bottom: 7px;
     }
 
-    /* ================= PROFILE ================= */
+    /* FRIENDS */
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .search-row .input {
+      flex: 1;
+    }
+
+    .search-row button {
+      width: auto;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .contacts-button {
+      margin-top: 12px;
+    }
+
+    .privacy-note {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .segment-title {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      font-weight: 900;
+
+      margin: 26px 0 10px;
+    }
+
+    .friend-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      background: var(--card);
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+      padding: 13px;
+
+      margin-bottom: 10px;
+    }
+
+    .friend-avatar {
+      width: 46px;
+      height: 46px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: var(--card2);
+
+      font-weight: 900;
+    }
+
+    .friend-details {
+      flex: 1;
+    }
+
+    .friend-details strong {
+      display: block;
+    }
+
+    .friend-details span {
+      display: block;
+
+      color: var(--muted);
+      font-size: 12px;
+
+      margin-top: 3px;
+    }
+
+    .small-action {
+      border: 1px solid var(--orange);
+
+      background: transparent;
+      color: var(--orange);
+
+      padding: 9px 12px;
+
+      border-radius: 10px;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .small-action.fill {
+      background: var(--orange);
+      color: white;
+    }
+
+    .team-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+      padding: 18px;
+
+      margin-bottom: 12px;
+    }
+
+    .team-card h3 {
+      margin-bottom: 6px;
+    }
+
+    .team-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .team-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .team-actions button {
+      flex: 1;
+    }
+
+    /* PROFILE */
 
     .profile-card {
       text-align: center;
+
       background: var(--card);
       border: 1px solid var(--border);
+
       border-radius: 20px;
       padding: 27px;
+
       margin: 23px 0 28px;
     }
 
     .avatar {
       width: 82px;
       height: 82px;
+
       border-radius: 50%;
+
       background: #452318;
       color: var(--orange);
+
       margin: 0 auto 14px;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       font-size: 31px;
       font-weight: 900;
     }
 
     .profile-section-title {
       margin: 25px 0 8px;
+
       color: var(--muted);
+
       font-size: 11px;
       letter-spacing: 1.3px;
+
       font-weight: 900;
     }
 
     .profile-item {
       width: 100%;
       min-height: 53px;
+
       border: 1px solid var(--border);
       border-radius: 14px;
+
       background: var(--card);
       color: white;
+
       padding: 0 15px;
       margin-bottom: 7px;
+
       display: flex;
       align-items: center;
       gap: 13px;
+
       text-align: left;
     }
 
     .profile-icon {
       width: 21px;
       height: 21px;
+
       color: #aaaeb7;
     }
 
@@ -822,22 +1028,79 @@
 
     .logout {
       width: 100%;
+
       margin-top: 27px;
       padding: 15px;
+
       border-radius: 14px;
       border: 1px solid var(--red);
+
       background: transparent;
       color: var(--red);
+
       font-weight: 900;
     }
 
-    /* ================= MODALS ================= */
+    /* NAV */
+
+    .bottom-nav {
+      position: fixed;
+
+      left: 50%;
+      bottom: 0;
+
+      transform: translateX(-50%);
+
+      width: 100%;
+      max-width: 480px;
+      height: 82px;
+
+      background: #15171c;
+      border-top: 1px solid #242830;
+
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+
+      z-index: 50;
+    }
+
+    .nav-item {
+      background: transparent;
+      border: 0;
+
+      color: var(--muted);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      gap: 6px;
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .nav-item.active {
+      color: var(--orange);
+    }
+
+    /* MODAL */
 
     .modal-overlay {
       position: fixed;
       inset: 0;
+
       z-index: 200;
+
       background: rgba(0,0,0,.78);
+
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -846,10 +1109,14 @@
     .modal {
       width: 100%;
       max-width: 480px;
+
       background: #17191f;
       border: 1px solid var(--border);
+
       border-radius: 25px 25px 0 0;
+
       padding: 23px 20px 30px;
+
       max-height: 88vh;
       overflow-y: auto;
     }
@@ -867,20 +1134,28 @@
 
     .modal-close {
       float: right;
+
       width: 37px;
       height: 37px;
+
       border: 0;
       border-radius: 50%;
+
       background: var(--card2);
       color: white;
+
       font-size: 20px;
     }
 
-    .alert-card {
+    .alert-card,
+    .payment-box {
       padding: 16px;
+
       background: var(--card);
       border: 1px solid var(--border);
+
       border-radius: 16px;
+
       margin-bottom: 11px;
     }
 
@@ -896,23 +1171,116 @@
       font-weight: 800;
     }
 
-    .payment-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      padding: 18px;
-      margin-bottom: 15px;
+    /* CALENDAR POPUP */
+
+    .calendar-modal-header {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+
+      align-items: center;
+      text-align: center;
+
+      margin-bottom: 22px;
     }
 
-    .warning {
-      padding: 13px;
-      border-radius: 13px;
-      border: 1px solid #6c3a22;
-      background: rgba(255,90,0,.09);
-      color: #ffb181;
+    .calendar-modal-header h2 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    .calendar-arrow {
+      width: 40px;
+      height: 40px;
+
+      border-radius: 50%;
+
+      border: 1px solid var(--border);
+      background: var(--card2);
+      color: white;
+
+      font-size: 24px;
+    }
+
+    .calendar-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7,1fr);
+
+      text-align: center;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      margin-bottom: 10px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7,1fr);
+      gap: 6px;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1 / 1;
+
+      border: 0;
+      background: transparent;
+      color: white;
+
+      border-radius: 12px;
+
+      position: relative;
+
       font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 16px;
+    }
+
+    .calendar-day.other-month {
+      opacity: .28;
+    }
+
+    .calendar-day.has-event {
+      background: #182235;
+      border: 1px solid #345f99;
+    }
+
+    .calendar-day.has-event::after {
+      content: "";
+
+      position: absolute;
+
+      bottom: 5px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 5px;
+      height: 5px;
+
+      background: var(--blue);
+      border-radius: 50%;
+    }
+
+    .calendar-day.selected {
+      background: #255ca7;
+      border-color: #5b9cff;
+    }
+
+    .calendar-event-detail {
+      min-height: 80px;
+
+      background: var(--card);
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      padding: 15px;
+      margin-top: 18px;
+    }
+
+    .calendar-event-detail strong {
+      display: block;
+      margin-bottom: 5px;
     }
 
     @media(min-width:700px) {
@@ -931,7 +1299,7 @@
 
 <body>
 
-<!-- ================= AUTH ================= -->
+<!-- AUTH -->
 
 <section id="authScreen" class="auth-screen">
 
@@ -941,9 +1309,14 @@
       Sports<span>Cup</span>
     </div>
 
-    <h1 id="authTitle">Welcome back.</h1>
+    <h1 id="authTitle">
+      Welcome back.
+    </h1>
 
-    <p id="authDescription" class="auth-description">
+    <p
+      id="authDescription"
+      class="auth-description"
+    >
       Log in to join tournaments and follow your competitions.
     </p>
 
@@ -952,24 +1325,29 @@
       <button
         id="loginTab"
         class="active"
-        onclick="switchAuth('login')">
+        onclick="switchAuth('login')"
+      >
         Log in
       </button>
 
       <button
         id="signupTab"
-        onclick="switchAuth('signup')">
+        onclick="switchAuth('signup')"
+      >
         Sign up
       </button>
 
     </div>
 
-    <div id="authMessage" class="auth-message"></div>
+    <div
+      id="authMessage"
+      class="auth-message"
+    ></div>
 
-
-    <!-- SIGNUP NAME FIELDS -->
-
-    <div id="signupFields" class="hidden">
+    <div
+      id="signupFields"
+      class="hidden"
+    >
 
       <div class="field">
         <label>First name</label>
@@ -977,9 +1355,8 @@
         <input
           id="firstName"
           class="input"
-          type="text"
-          autocomplete="given-name"
-          placeholder="Alin">
+          placeholder="First name"
+        >
       </div>
 
       <div class="field">
@@ -988,955 +1365,695 @@
         <input
           id="lastName"
           class="input"
-          type="text"
-          autocomplete="family-name"
-          placeholder="Sikar">
+          placeholder="Last name"
+        >
       </div>
 
     </div>
 
-
     <div class="field">
-
       <label>Email</label>
 
       <input
         id="authEmail"
         class="input"
         type="email"
-        autocomplete="email"
-        placeholder="you@email.com">
-
+        placeholder="you@email.com"
+      >
     </div>
 
-
     <div class="field">
-
       <label>Password</label>
 
       <input
         id="authPassword"
         class="input"
         type="password"
-        autocomplete="current-password"
-        placeholder="••••••••">
-
+        placeholder="••••••••"
+      >
     </div>
 
-
-    <div id="confirmPasswordField" class="field hidden">
-
+    <div
+      id="confirmPasswordField"
+      class="field hidden"
+    >
       <label>Confirm password</label>
 
       <input
         id="confirmPassword"
         class="input"
         type="password"
-        autocomplete="new-password"
-        placeholder="••••••••">
-
+        placeholder="••••••••"
+      >
     </div>
-
 
     <button
       id="authMainButton"
       class="primary-btn"
-      onclick="handleAuth()">
+      onclick="handleAuth()"
+    >
       Log in
     </button>
-
 
     <div class="separator">
       OR
     </div>
 
-
     <button
       class="secondary-btn google-btn"
-      onclick="signInWithGoogle()">
-
-      <span class="google-logo">G</span>
+      onclick="signInWithGoogle()"
+    >
+      <span class="google-logo">
+        G
+      </span>
 
       Continue with Google
-
     </button>
-
-
-    <p
-      class="muted small"
-      style="text-align:center;margin-top:20px;line-height:1.5;">
-      Your browser or password manager can securely save your password.
-      SportsCup never stores your plain-text password.
-    </p>
 
   </div>
 
 </section>
 
 
-<!-- ================= APP ================= -->
+<!-- MAIN APP -->
 
-<div id="mainApp" class="app hidden">
+<div
+  id="mainApp"
+  class="app hidden"
+>
 
 
-  <!-- DISCOVER -->
+<!-- DISCOVER -->
 
-  <section id="discoverScreen" class="screen">
+<section
+  id="discoverScreen"
+  class="screen"
+>
 
-    <div class="discover-header">
+  <div class="discover-header">
 
-      <div>
+    <div>
 
-        <div class="hello">
-          Hey <span id="helloName">Alin</span>
-        </div>
-
-        <h1 class="page-title">
-          Discover
-        </h1>
-
+      <div class="brand-small">
+        SportsCup
       </div>
 
-
-      <button
-        class="alert-button"
-        onclick="openModal('alertsModal')">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke-width="2">
-
-          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-          <path d="M10 21h4"/>
-
-        </svg>
-
-        <div class="alert-dot"></div>
-
-      </button>
-
-    </div>
-
-
-    <div class="filters">
-
-      <button
-        class="filter active"
-        onclick="filterTournaments('all',this)">
-        🏆 All Sports
-      </button>
-
-      <button
-        class="filter"
-        onclick="filterTournaments('football',this)">
-        ⚽ Football
-      </button>
-
-      <button
-        class="filter"
-        onclick="filterTournaments('padel',this)">
-        🎾 Padel
-      </button>
-
-    </div>
-
-
-    <div class="discover-content">
-
-
-      <div
-        class="featured tournament-item"
-        data-sport="football"
-        onclick="openFootballTournament()">
-
-        <div class="feature-badge">
-          ⚽ FEATURED
-        </div>
-
-        <div class="featured-content">
-
-          <h2>
-            Amsterdam Amateur Cup
-          </h2>
-
-          <div class="stats-row">
-
-            <div>
-              <div class="stat-label">PRIZE</div>
-              <div class="stat-value">€500</div>
-            </div>
-
-            <div>
-              <div class="stat-label">FEE</div>
-              <div class="stat-value">€45</div>
-            </div>
-
-            <div>
-              <div class="stat-label">PLAYERS</div>
-              <div class="stat-value">23/32</div>
-            </div>
-
-          </div>
-
-          <div class="muted small">
-            Amsterdam · Sportpark De Toekomst
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <h2 class="section-title">
-        Upcoming Competitions
-      </h2>
-
-
-      <div class="competition-list">
-
-
-        <div
-          class="competition tournament-item"
-          data-sport="football"
-          onclick="openFootballTournament()">
-
-          <div class="date-box">
-            <strong>6</strong>
-            <span>SEP</span>
-          </div>
-
-          <div class="competition-info">
-
-            <h3>
-              Amsterdam Amateur Cup
-            </h3>
-
-            <p>
-              Football · Amsterdam
-            </p>
-
-            <div class="competition-meta">
-              <span>€45</span>
-              <span>23/32 players</span>
-            </div>
-
-          </div>
-
-          <div class="chevron">›</div>
-
-        </div>
-
-
-        <div
-          class="competition tournament-item"
-          data-sport="padel"
-          onclick="openPadelTournament()">
-
-          <div class="date-box">
-            <strong>13</strong>
-            <span>SEP</span>
-          </div>
-
-          <div class="competition-info">
-
-            <h3>
-              Rotterdam Padel Open
-            </h3>
-
-            <p>
-              Padel · Rotterdam
-            </p>
-
-            <div class="competition-meta">
-              <span>€30</span>
-              <span>12/16 players</span>
-            </div>
-
-          </div>
-
-          <div class="chevron">›</div>
-
-        </div>
-
-
-        <div
-          class="competition tournament-item"
-          data-sport="football"
-          onclick="openFootballTournament()">
-
-          <div class="date-box">
-            <strong>22</strong>
-            <span>SEP</span>
-          </div>
-
-          <div class="competition-info">
-
-            <h3>
-              Haagse Saturday League
-            </h3>
-
-            <p>
-              Football · Den Haag
-            </p>
-
-            <div class="competition-meta">
-              <span>€55</span>
-              <span>18/32 players</span>
-            </div>
-
-          </div>
-
-          <div class="chevron">›</div>
-
-        </div>
-
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= TOURNAMENT ================= -->
-
-  <section
-    id="tournamentScreen"
-    class="screen hidden">
-
-
-    <div
-      id="tournamentHero"
-      class="tournament-hero">
-
-      <button
-        class="back-button"
-        onclick="showScreen('discover')">
-        ‹
-      </button>
-
-
-      <div
-        id="detailSport"
-        class="sport-pill">
-        ⚽ Football
-      </div>
-
-
-      <div class="tournament-heading">
-
-        <h1 id="detailTitle">
-          Amsterdam Amateur Cup
-        </h1>
-
-        <p
-          id="detailLocation"
-          class="muted">
-          Amsterdam · Sportpark De Toekomst
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <div class="detail-body">
-
-
-      <div class="stat-grid">
-
-
-        <div class="detail-stat">
-
-          <div class="label">
-            ENTRY FEE
-          </div>
-
-          <div
-            id="detailFee"
-            class="value">
-            €45
-          </div>
-
-        </div>
-
-
-        <div class="detail-stat orange">
-
-          <div class="label">
-            PRIZE POOL
-          </div>
-
-          <div
-            id="detailPrize"
-            class="value"
-            style="color:var(--orange)">
-            €500
-          </div>
-
-        </div>
-
-
-        <div class="detail-stat">
-
-          <div class="label">
-            REGISTERED
-          </div>
-
-          <div
-            id="detailPlayers"
-            class="value">
-            23/32
-          </div>
-
-        </div>
-
-
-        <div class="detail-stat">
-
-          <div class="label">
-            TEAM SIZE
-          </div>
-
-          <div
-            id="detailTeamSize"
-            class="value">
-            11
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-      <div class="tabs">
-
-        <button
-          class="tab-button active"
-          onclick="showTournamentTab('info',this)">
-          INFO
-        </button>
-
-        <button
-          class="tab-button"
-          onclick="showTournamentTab('schedule',this)">
-          SCHEDULE
-        </button>
-
-        <button
-          class="tab-button"
-          onclick="showTournamentTab('bracket',this)">
-          BRACKET
-        </button>
-
-        <button
-          class="tab-button"
-          onclick="showTournamentTab('teams',this)">
-          TEAMS
-        </button>
-
-      </div>
-
-
-      <!-- INFO -->
-
-      <div
-        id="infoTab"
-        class="tab-content">
-
-        <p id="detailDescription">
-          Amsterdam's amateur football tournament.
-          Register individually and your team will
-          be announced when registration closes.
-        </p>
-
-
-        <div class="detail-divider">
-
-          <div class="detail-label">
-            DATES
-          </div>
-
-          <div
-            id="detailDate"
-            class="detail-value">
-            Sun Sep 06 2026
-          </div>
-
-
-          <div class="detail-label">
-            VENUE
-          </div>
-
-          <div
-            id="detailVenue"
-            class="detail-value">
-            Sportpark De Toekomst, Amsterdam
-          </div>
-
-
-          <div class="detail-label">
-            REGISTRATION CLOSES
-          </div>
-
-          <div class="detail-value">
-            Sep 4, 2026 · 23:59
-          </div>
-
-
-          <div class="detail-label">
-            TEAM ASSIGNMENT
-          </div>
-
-          <div class="detail-value">
-            Teams are announced after registration closes.
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- SCHEDULE -->
-
-      <div
-        id="scheduleTab"
-        class="tab-content hidden">
-
-        <div class="info-card">
-          <strong>10:00 · Pitch 1</strong>
-          <span class="muted">
-            Team Orange vs Team Black
-          </span>
-        </div>
-
-        <div class="info-card">
-          <strong>11:15 · Pitch 2</strong>
-          <span class="muted">
-            Team White vs Team Blue
-          </span>
-        </div>
-
-        <div class="info-card">
-          <strong>13:30 · Pitch 1</strong>
-          <span class="muted">
-            Semi Final
-          </span>
-        </div>
-
-        <div class="info-card">
-          <strong>16:30 · Main Pitch</strong>
-          <span class="muted">
-            Final
-          </span>
-        </div>
-
-      </div>
-
-
-      <!-- BRACKET -->
-
-      <div
-        id="bracketTab"
-        class="tab-content hidden">
-
-        <div class="bracket-title">
-          SEMI FINALS
-        </div>
-
-        <div class="info-card">
-          <strong>Team Orange 3</strong>
-          <span class="muted">
-            Team Black 1
-          </span>
-        </div>
-
-        <div class="info-card">
-          <strong>Team White —</strong>
-          <span class="muted">
-            Team Blue —
-          </span>
-        </div>
-
-
-        <div class="bracket-title">
-          FINAL
-        </div>
-
-        <div class="info-card">
-          <strong>Team Orange</strong>
-          <span class="muted">
-            Winner Semi Final 2
-          </span>
-        </div>
-
-      </div>
-
-
-      <!-- TEAMS -->
-
-      <div
-        id="teamsTab"
-        class="tab-content hidden">
-
-        <p
-          class="muted"
-          style="margin-bottom:17px;">
-          Final teams will appear here after registration closes.
-        </p>
-
-        <div class="info-card">
-          <strong>Team Orange</strong>
-          <span class="muted">
-            11 players
-          </span>
-        </div>
-
-        <div class="info-card">
-          <strong>Team Black</strong>
-          <span class="muted">
-            11 players
-          </span>
-        </div>
-
-        <div class="info-card">
-          <strong>10 player spots remaining</strong>
-          <span class="muted">
-            Waiting for registrations
-          </span>
-        </div>
-
-      </div>
-
-
-    </div>
-
-
-    <div class="join-bar">
-
-      <div class="join-price">
-
-        <strong id="joinPrice">
-          €45
-        </strong>
-
-        <span>
-          ENTRY FEE
+      <div class="hello">
+        Hey
+        <span id="helloName">
+          Player
         </span>
-
       </div>
 
-      <button
-        id="joinButton"
-        class="join-button"
-        onclick="openJoinModal()">
-        Join Tournament
-      </button>
+      <h1 class="page-title">
+        Discover
+      </h1>
 
     </div>
 
-  </section>
+    <button
+      class="alert-button"
+      onclick="openModal('alertsModal')"
+    >
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="2"
+      >
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+        <path d="M10 21h4"/>
+      </svg>
+
+      <div class="alert-dot"></div>
+
+    </button>
+
+  </div>
 
 
-  <!-- ================= CALENDAR ================= -->
+  <div class="filters">
 
-  <section
-    id="calendarScreen"
-    class="screen hidden page">
+    <button
+      class="filter active"
+      onclick="filterTournaments('all',this)"
+    >
+      All Sports
+    </button>
 
-    <h1 class="page-title">
-      Calendar
-    </h1>
+    <button
+      class="filter"
+      onclick="filterTournaments('football',this)"
+    >
+      Football
+    </button>
 
-    <p class="muted calendar-intro">
-      Your tournaments, matches and upcoming competition dates.
-    </p>
+    <button
+      class="filter"
+      onclick="filterTournaments('padel',this)"
+    >
+      Padel
+    </button>
 
+  </div>
+
+
+  <div class="discover-content">
 
     <div
-      class="calendar-card football"
-      onclick="openFootballTournament()">
+      class="featured tournament-item"
+      data-sport="football"
+      onclick="openFootballTournament()"
+    >
 
-      <div class="calendar-date">
-        06 SEP
+      <div class="feature-badge">
+        FEATURED
       </div>
 
-      <div class="calendar-info">
+      <div class="featured-content">
 
-        <h3>
+        <h2>
           Amsterdam Amateur Cup
-        </h3>
+        </h2>
 
-        <p class="muted">
-          Football · Sportpark De Toekomst
-        </p>
+        <div class="stats-row">
 
-        <p
-          style="margin-top:9px;font-size:13px;">
-          10:00 · Amsterdam
-        </p>
+          <div>
+            <div class="stat-label">
+              PRIZE
+            </div>
+
+            <div class="stat-value">
+              €500
+            </div>
+          </div>
+
+          <div>
+            <div class="stat-label">
+              FEE
+            </div>
+
+            <div class="stat-value">
+              €45
+            </div>
+          </div>
+
+          <div>
+            <div class="stat-label">
+              PLAYERS
+            </div>
+
+            <div class="stat-value">
+              23/32
+            </div>
+          </div>
+
+        </div>
+
+        <div class="muted small">
+          Amsterdam · Sportpark De Toekomst
+        </div>
 
       </div>
 
     </div>
 
 
-    <div
-      class="calendar-card padel"
-      onclick="openPadelTournament()">
-
-      <div class="calendar-date">
-        13 SEP
-      </div>
-
-      <div class="calendar-info">
-
-        <h3>
-          Rotterdam Padel Open
-        </h3>
-
-        <p class="muted">
-          Padel · Padel City Rotterdam
-        </p>
-
-        <p
-          style="margin-top:9px;font-size:13px;">
-          12:00 · Rotterdam
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
+    <h2 class="section-title">
+      Upcoming Competitions
+    </h2>
 
 
-  <!-- ================= PROFILE ================= -->
-
-  <section
-    id="profileScreen"
-    class="screen hidden page">
-
-    <h1 class="page-title">
-      Profile
-    </h1>
-
-
-    <div class="profile-card">
+    <div class="competition-list">
 
       <div
-        id="profileAvatar"
-        class="avatar">
-        A
+        class="competition tournament-item"
+        data-sport="football"
+        onclick="openFootballTournament()"
+      >
+
+        <div class="date-box">
+          <strong>6</strong>
+          <span>SEP</span>
+        </div>
+
+        <div class="competition-info">
+
+          <h3>
+            Amsterdam Amateur Cup
+          </h3>
+
+          <p>
+            Football · Amsterdam
+          </p>
+
+          <div class="competition-meta">
+            <span>€45</span>
+            <span>23/32 players</span>
+          </div>
+
+        </div>
+
+        <div class="chevron">
+          ›
+        </div>
+
       </div>
 
-      <h2 id="profileName">
-        SportsCup User
-      </h2>
+
+      <div
+        class="competition tournament-item"
+        data-sport="padel"
+        onclick="openPadelTournament()"
+      >
+
+        <div class="date-box">
+          <strong>13</strong>
+          <span>SEP</span>
+        </div>
+
+        <div class="competition-info">
+
+          <h3>
+            Rotterdam Padel Open
+          </h3>
+
+          <p>
+            Padel · Rotterdam
+          </p>
+
+          <div class="competition-meta">
+            <span>€30</span>
+            <span>12/16 players</span>
+          </div>
+
+        </div>
+
+        <div class="chevron">
+          ›
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TOURNAMENT -->
+
+<section
+  id="tournamentScreen"
+  class="screen hidden"
+>
+
+  <div
+    id="tournamentHero"
+    class="tournament-hero"
+  >
+
+    <button
+      class="back-button"
+      onclick="showScreen('discover')"
+    >
+      ‹
+    </button>
+
+    <div
+      id="detailSport"
+      class="sport-pill"
+    >
+      Football
+    </div>
+
+    <div class="tournament-heading">
+
+      <h1 id="detailTitle">
+        Amsterdam Amateur Cup
+      </h1>
 
       <p
-        id="profileEmail"
-        class="muted small"
-        style="margin-top:5px;">
-        user@email.com
+        id="detailLocation"
+        class="muted"
+      >
+        Amsterdam · Sportpark De Toekomst
       </p>
 
     </div>
 
+  </div>
 
-    <div class="profile-section-title">
-      ACCOUNT
+
+  <div class="detail-body">
+
+    <div class="stat-grid">
+
+      <div class="detail-stat">
+
+        <div class="label">
+          ENTRY FEE
+        </div>
+
+        <div
+          id="detailFee"
+          class="value"
+        >
+          €45
+        </div>
+
+      </div>
+
+
+      <div class="detail-stat orange">
+
+        <div class="label">
+          PRIZE POOL
+        </div>
+
+        <div
+          id="detailPrize"
+          class="value"
+          style="color:var(--orange)"
+        >
+          €500
+        </div>
+
+      </div>
+
+
+      <div class="detail-stat">
+
+        <div class="label">
+          REGISTERED
+        </div>
+
+        <div
+          id="detailPlayers"
+          class="value"
+        >
+          23/32
+        </div>
+
+      </div>
+
+
+      <div class="detail-stat">
+
+        <div class="label">
+          TEAM SIZE
+        </div>
+
+        <div
+          id="detailTeamSize"
+          class="value"
+        >
+          11
+        </div>
+
+      </div>
+
     </div>
 
 
-    <button
-      class="profile-item"
-      onclick="openPersonalDetails()">
+    <div class="tabs">
 
-      <span class="profile-icon">
+      <button
+        class="tab-button active"
+        onclick="showTournamentTab('info',this)"
+      >
+        INFO
+      </button>
 
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke-width="1.8">
+      <button
+        class="tab-button"
+        onclick="showTournamentTab('schedule',this)"
+      >
+        SCHEDULE
+      </button>
 
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M4 21a8 8 0 0 1 16 0"/>
+      <button
+        class="tab-button"
+        onclick="showTournamentTab('bracket',this)"
+      >
+        BRACKET
+      </button>
 
-        </svg>
+      <button
+        class="tab-button"
+        onclick="showTournamentTab('teams',this)"
+      >
+        TEAMS
+      </button>
 
-      </span>
-
-      Personal details
-
-      <span class="profile-arrow">
-        ›
-      </span>
-
-    </button>
-
-
-    <button
-      class="profile-item"
-      onclick="openPaymentHistory()">
-
-      <span class="profile-icon">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke-width="1.8">
-
-          <rect x="3" y="5" width="18" height="14" rx="2"/>
-          <path d="M3 9h18"/>
-          <path d="M7 15h4"/>
-
-        </svg>
-
-      </span>
-
-      Payment history
-
-      <span class="profile-arrow">
-        ›
-      </span>
-
-    </button>
-
-
-    <button class="profile-item">
-
-      <span class="profile-icon">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke-width="1.8">
-
-          <path d="M8 21h8"/>
-          <path d="M12 17v4"/>
-          <path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/>
-          <path d="M7 6H4v2a4 4 0 0 0 4 4"/>
-          <path d="M17 6h3v2a4 4 0 0 1-4 4"/>
-
-        </svg>
-
-      </span>
-
-      My tournaments
-
-      <span class="profile-arrow">
-        ›
-      </span>
-
-    </button>
-
-
-    <div class="profile-section-title">
-      SUPPORT
     </div>
 
 
-    <button class="profile-item">
+    <div
+      id="infoTab"
+      class="tab-content"
+    >
 
-      <span class="profile-icon">
+      <p id="detailDescription">
+        Register individually or create a team with friends.
+      </p>
 
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke-width="1.8">
+      <div class="detail-divider">
 
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2"/>
-          <path d="M12 17h.01"/>
+        <div class="detail-label">
+          DATES
+        </div>
 
-        </svg>
+        <div
+          id="detailDate"
+          class="detail-value"
+        >
+          Sun Sep 06 2026
+        </div>
 
+
+        <div class="detail-label">
+          VENUE
+        </div>
+
+        <div
+          id="detailVenue"
+          class="detail-value"
+        >
+          Sportpark De Toekomst, Amsterdam
+        </div>
+
+
+        <div class="detail-label">
+          REGISTRATION CLOSES
+        </div>
+
+        <div class="detail-value">
+          Sep 4, 2026 · 23:59
+        </div>
+
+
+        <div class="detail-label">
+          TEAM ASSIGNMENT
+        </div>
+
+        <div class="detail-value">
+          Create a team with friends or join individually.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="scheduleTab"
+      class="tab-content hidden"
+    >
+
+      <div class="info-card">
+        <strong>
+          10:00 · Pitch 1
+        </strong>
+
+        <span class="muted">
+          Team Orange vs Team Black
+        </span>
+      </div>
+
+      <div class="info-card">
+        <strong>
+          11:15 · Pitch 2
+        </strong>
+
+        <span class="muted">
+          Team White vs Team Blue
+        </span>
+      </div>
+
+      <div class="info-card">
+        <strong>
+          16:30 · Main Pitch
+        </strong>
+
+        <span class="muted">
+          Final
+        </span>
+      </div>
+
+    </div>
+
+
+    <div
+      id="bracketTab"
+      class="tab-content hidden"
+    >
+
+      <div class="bracket-title">
+        SEMI FINALS
+      </div>
+
+      <div class="info-card">
+        <strong>
+          Team Orange 3
+        </strong>
+
+        <span class="muted">
+          Team Black 1
+        </span>
+      </div>
+
+      <div class="info-card">
+        <strong>
+          Team White —
+        </strong>
+
+        <span class="muted">
+          Team Blue —
+        </span>
+      </div>
+
+
+      <div class="bracket-title">
+        FINAL
+      </div>
+
+      <div class="info-card">
+        <strong>
+          Team Orange
+        </strong>
+
+        <span class="muted">
+          Winner Semi Final 2
+        </span>
+      </div>
+
+    </div>
+
+
+    <div
+      id="teamsTab"
+      class="tab-content hidden"
+    >
+
+      <p
+        class="muted"
+        style="margin-bottom:17px"
+      >
+        Final teams and player lists will appear here.
+      </p>
+
+      <div class="info-card">
+        <strong>
+          Team Orange
+        </strong>
+
+        <span class="muted">
+          11 players
+        </span>
+      </div>
+
+      <div class="info-card">
+        <strong>
+          Team Black
+        </strong>
+
+        <span class="muted">
+          11 players
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="join-bar">
+
+    <div class="join-price">
+
+      <strong id="joinPrice">
+        €45
+      </strong>
+
+      <span>
+        ENTRY FEE
       </span>
 
-      Help Center
-
-      <span class="profile-arrow">
-        ›
-      </span>
-
-    </button>
-
-
-    <button class="profile-item">
-
-      <span class="profile-icon">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke-width="1.8">
-
-          <path d="M6 3h9l4 4v14H6z"/>
-          <path d="M14 3v5h5"/>
-          <path d="M9 13h6"/>
-          <path d="M9 17h6"/>
-
-        </svg>
-
-      </span>
-
-      Terms & Privacy
-
-      <span class="profile-arrow">
-        ›
-      </span>
-
-    </button>
-
+    </div>
 
     <button
-      class="logout"
-      onclick="logout()">
-      Sign out
+      class="join-button"
+      onclick="startCheckout()"
+    >
+      Join Tournament
     </button>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- ================= NAV ================= -->
+<!-- CALENDAR -->
 
-  <nav
-    id="bottomNav"
-    class="bottom-nav">
+<section
+  id="calendarScreen"
+  class="screen hidden page"
+>
+
+  <div class="calendar-header">
+
+    <div>
+
+      <div class="brand-small">
+        SportsCup
+      </div>
+
+      <h1 class="page-title">
+        Your Calendar
+      </h1>
+
+    </div>
 
     <button
-      class="nav-item active"
-      data-screen="discover"
-      onclick="showScreen('discover')">
+      class="calendar-open-button"
+      onclick="openCalendarModal()"
+    >
 
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        stroke-width="2">
+        stroke-width="2"
+      >
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="16"
+          rx="2"
+        />
 
-        <path d="M12 3C8 7 7 10 7 13a5 5 0 0 0 10 0c0-3-2-6-5-10z"/>
-
-      </svg>
-
-      Discover
-
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-screen="calendar"
-      onclick="showScreen('calendar')">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke-width="2">
-
-        <rect x="3" y="5" width="18" height="16" rx="2"/>
         <path d="M8 3v4M16 3v4M3 10h18"/>
 
       </svg>
@@ -1945,42 +2062,487 @@
 
     </button>
 
+  </div>
+
+  <p class="muted calendar-intro">
+    Your upcoming tournaments and matches.
+  </p>
+
+
+  <div
+    class="calendar-card football"
+    onclick="openFootballTournament()"
+  >
+
+    <div class="calendar-date">
+      06 SEP
+    </div>
+
+    <div class="calendar-info">
+
+      <h3>
+        Amsterdam Amateur Cup
+      </h3>
+
+      <p class="muted">
+        Football · Sportpark De Toekomst
+      </p>
+
+      <p style="margin-top:9px;font-size:13px">
+        10:00 · Amsterdam
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="calendar-card padel"
+    onclick="openPadelTournament()"
+  >
+
+    <div class="calendar-date">
+      13 SEP
+    </div>
+
+    <div class="calendar-info">
+
+      <h3>
+        Rotterdam Padel Open
+      </h3>
+
+      <p class="muted">
+        Padel · Padel City Rotterdam
+      </p>
+
+      <p style="margin-top:9px;font-size:13px">
+        12:00 · Rotterdam
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FRIENDS -->
+
+<section
+  id="friendsScreen"
+  class="screen hidden page"
+>
+
+  <div class="brand-small">
+    SportsCup
+  </div>
+
+  <h1 class="page-title">
+    Friends
+  </h1>
+
+  <p
+    class="muted"
+    style="margin-top:10px;line-height:1.5"
+  >
+    Add friends and invite them to your team.
+  </p>
+
+
+  <div class="search-row">
+
+    <input
+      id="friendSearch"
+      class="input"
+      placeholder="Search SportsCup members..."
+    >
 
     <button
-      class="nav-item"
-      data-screen="profile"
-      onclick="showScreen('profile')">
+      class="primary-btn"
+      onclick="searchFriends()"
+    >
+      Search
+    </button>
+
+  </div>
+
+
+  <button
+    class="secondary-btn contacts-button"
+    onclick="openContacts()"
+  >
+    Access My Contacts
+  </button>
+
+  <p class="privacy-note">
+    SportsCup only receives contacts you explicitly choose to share.
+  </p>
+
+
+  <div class="segment-title">
+    SEARCH RESULTS
+  </div>
+
+  <div id="friendSearchResults">
+
+    <div class="muted small">
+      Search for another SportsCup member.
+    </div>
+
+  </div>
+
+
+  <div class="segment-title">
+    FRIEND REQUESTS
+  </div>
+
+  <div id="friendRequests">
+
+    <div class="muted small">
+      Friend requests will appear here.
+    </div>
+
+  </div>
+
+
+  <div class="segment-title">
+    MY FRIENDS
+  </div>
+
+  <div id="friendsList">
+
+    <div class="muted small">
+      Your friends will appear here.
+    </div>
+
+  </div>
+
+
+  <div class="segment-title">
+    MY TEAM
+  </div>
+
+  <div id="myTeam">
+
+    <div class="team-card">
+
+      <h3>
+        No team yet
+      </h3>
+
+      <p>
+        Create a football or padel team and invite your friends.
+      </p>
+
+      <button
+        class="primary-btn"
+        onclick="openModal('createTeamModal')"
+      >
+        Create Team
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="segment-title">
+    TEAM INVITES
+  </div>
+
+  <div id="teamInvites">
+
+    <div class="muted small">
+      Team invites will appear here.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section
+  id="profileScreen"
+  class="screen hidden page"
+>
+
+  <div class="brand-small">
+    SportsCup
+  </div>
+
+  <h1 class="page-title">
+    Profile
+  </h1>
+
+
+  <div class="profile-card">
+
+    <div
+      id="profileAvatar"
+      class="avatar"
+    >
+      S
+    </div>
+
+    <h2 id="profileName">
+      SportsCup User
+    </h2>
+
+    <p
+      id="profileEmail"
+      class="muted small"
+      style="margin-top:5px"
+    >
+      user@email.com
+    </p>
+
+  </div>
+
+
+  <div class="profile-section-title">
+    ACCOUNT
+  </div>
+
+
+  <button
+    class="profile-item"
+    onclick="openPersonalDetails()"
+  >
+
+    <span class="profile-icon">
 
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        stroke-width="2">
-
+        stroke-width="1.8"
+      >
         <circle cx="12" cy="8" r="4"/>
         <path d="M4 21a8 8 0 0 1 16 0"/>
-
       </svg>
 
-      Profile
+    </span>
 
-    </button>
+    Personal details
 
-  </nav>
+    <span class="profile-arrow">
+      ›
+    </span>
+
+  </button>
+
+
+  <button
+    class="profile-item"
+    onclick="openPaymentHistory()"
+  >
+
+    <span class="profile-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="1.8"
+      >
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="14"
+          rx="2"
+        />
+
+        <path d="M3 9h18"/>
+      </svg>
+
+    </span>
+
+    Payment history
+
+    <span class="profile-arrow">
+      ›
+    </span>
+
+  </button>
+
+
+  <button class="profile-item">
+
+    <span class="profile-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="1.8"
+      >
+        <path d="M8 21h8"/>
+        <path d="M12 17v4"/>
+        <path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/>
+      </svg>
+
+    </span>
+
+    My tournaments
+
+    <span class="profile-arrow">
+      ›
+    </span>
+
+  </button>
+
+
+  <div class="profile-section-title">
+    SUPPORT
+  </div>
+
+
+  <button class="profile-item">
+
+    <span class="profile-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="1.8"
+      >
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2"/>
+      </svg>
+
+    </span>
+
+    Help Center
+
+    <span class="profile-arrow">
+      ›
+    </span>
+
+  </button>
+
+
+  <button
+    class="logout"
+    onclick="logout()"
+  >
+    Sign out
+  </button>
+
+</section>
+
+
+<!-- NAV -->
+
+<nav
+  id="bottomNav"
+  class="bottom-nav"
+>
+
+  <button
+    class="nav-item active"
+    data-screen="discover"
+    onclick="showScreen('discover')"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+    >
+      <path d="M12 3C8 7 7 10 7 13a5 5 0 0 0 10 0c0-3-2-6-5-10z"/>
+    </svg>
+
+    Discover
+
+  </button>
+
+
+  <button
+    class="nav-item"
+    data-screen="calendar"
+    onclick="showScreen('calendar')"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+    >
+      <rect
+        x="3"
+        y="5"
+        width="18"
+        height="16"
+        rx="2"
+      />
+
+      <path d="M8 3v4M16 3v4M3 10h18"/>
+    </svg>
+
+    Calendar
+
+  </button>
+
+
+  <button
+    class="nav-item"
+    data-screen="friends"
+    onclick="showScreen('friends')"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+    >
+      <circle cx="9" cy="8" r="3"/>
+      <circle cx="17" cy="9" r="2.5"/>
+      <path d="M3 20a6 6 0 0 1 12 0"/>
+    </svg>
+
+    Friends
+
+  </button>
+
+
+  <button
+    class="nav-item"
+    data-screen="profile"
+    onclick="showScreen('profile')"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+    >
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 21a8 8 0 0 1 16 0"/>
+    </svg>
+
+    Profile
+
+  </button>
+
+</nav>
 
 </div>
 
 
-<!-- ================= ALERTS MODAL ================= -->
+<!-- ALERTS -->
 
 <div
   id="alertsModal"
-  class="modal-overlay hidden">
+  class="modal-overlay hidden"
+>
 
   <div class="modal">
 
     <button
       class="modal-close"
-      onclick="closeModal('alertsModal')">
+      onclick="closeModal('alertsModal')"
+    >
       ×
     </button>
 
@@ -1989,9 +2551,8 @@
     </h2>
 
     <p class="modal-description">
-      Tournament updates and important announcements.
+      Tournament updates.
     </p>
-
 
     <div class="alert-card">
 
@@ -2009,7 +2570,6 @@
 
     </div>
 
-
     <div class="alert-card">
 
       <strong>
@@ -2026,20 +2586,78 @@
 
     </div>
 
+  </div>
 
-    <div class="alert-card">
+</div>
 
-      <strong>
-        Team announcement coming soon
-      </strong>
 
-      <p class="muted small">
-        Teams will be announced after registration closes.
-      </p>
+<!-- CALENDAR MODAL -->
 
-      <div class="notification-time">
-        Yesterday
-      </div>
+<div
+  id="calendarModal"
+  class="modal-overlay hidden"
+>
+
+  <div class="modal">
+
+    <button
+      class="modal-close"
+      onclick="closeModal('calendarModal')"
+    >
+      ×
+    </button>
+
+
+    <div class="calendar-modal-header">
+
+      <button
+        class="calendar-arrow"
+        onclick="changeCalendarMonth(-1)"
+      >
+        ‹
+      </button>
+
+      <h2 id="calendarMonthTitle">
+        September 2026
+      </h2>
+
+      <button
+        class="calendar-arrow"
+        onclick="changeCalendarMonth(1)"
+      >
+        ›
+      </button>
+
+    </div>
+
+
+    <div class="calendar-weekdays">
+
+      <span>Mon</span>
+      <span>Tue</span>
+      <span>Wed</span>
+      <span>Thu</span>
+      <span>Fri</span>
+      <span>Sat</span>
+      <span>Sun</span>
+
+    </div>
+
+
+    <div
+      id="calendarGrid"
+      class="calendar-grid"
+    ></div>
+
+
+    <div
+      id="calendarEventDetail"
+      class="calendar-event-detail"
+    >
+
+      <span class="muted">
+        Select a blue date to view the event.
+      </span>
 
     </div>
 
@@ -2048,57 +2666,75 @@
 </div>
 
 
-<!-- ================= JOIN MODAL ================= -->
+<!-- TEAM CREATION -->
 
 <div
-  id="joinModal"
-  class="modal-overlay hidden">
+  id="createTeamModal"
+  class="modal-overlay hidden"
+>
 
   <div class="modal">
 
     <button
       class="modal-close"
-      onclick="closeModal('joinModal')">
+      onclick="closeModal('createTeamModal')"
+    >
       ×
     </button>
 
     <h2>
-      Join Tournament
+      Create Team
     </h2>
 
-    <p
-      id="joinTournamentName"
-      class="modal-description">
-      Amsterdam Amateur Cup
+    <p class="modal-description">
+      Create a team, then invite your SportsCup friends.
     </p>
 
 
-    <div class="warning">
-      This payment screen is currently a prototype.
-      We will connect a secure real payment provider next.
-      Card numbers will never be stored directly by SportsCup.
+    <div class="field">
+
+      <label>
+        Team name
+      </label>
+
+      <input
+        id="teamName"
+        class="input"
+        placeholder="Amsterdam XI"
+      >
+
     </div>
 
 
-    <div class="payment-box">
+    <div class="field">
 
-      <div class="muted small">
-        ENTRY FEE
-      </div>
+      <label>
+        Sport
+      </label>
 
-      <div
-        id="modalPaymentPrice"
-        style="font-size:34px;font-weight:900;margin-top:5px;">
-        €45
-      </div>
+      <select
+        id="teamSport"
+        class="input"
+      >
+
+        <option value="football">
+          Football
+        </option>
+
+        <option value="padel">
+          Padel
+        </option>
+
+      </select>
 
     </div>
 
 
     <button
       class="primary-btn"
-      onclick="completeDemoRegistration()">
-      Continue to Payment
+      onclick="createTeam()"
+    >
+      Create Team
     </button>
 
   </div>
@@ -2106,17 +2742,19 @@
 </div>
 
 
-<!-- ================= PERSONAL DETAILS ================= -->
+<!-- PERSONAL DETAILS -->
 
 <div
   id="personalModal"
-  class="modal-overlay hidden">
+  class="modal-overlay hidden"
+>
 
   <div class="modal">
 
     <button
       class="modal-close"
-      onclick="closeModal('personalModal')">
+      onclick="closeModal('personalModal')"
+    >
       ×
     </button>
 
@@ -2125,78 +2763,89 @@
     </h2>
 
     <p class="modal-description">
-      Manage your profile information.
+      Manage your profile.
     </p>
 
 
     <div class="field">
 
-      <label>Full name</label>
+      <label>
+        Full name
+      </label>
 
       <input
         id="personalName"
         class="input"
-        type="text">
+      >
 
     </div>
 
 
     <div class="field">
 
-      <label>Email</label>
+      <label>
+        Email
+      </label>
 
       <input
         id="personalEmail"
         class="input"
-        type="email"
-        readonly>
+        readonly
+      >
 
     </div>
 
 
     <div class="field">
 
-      <label>Date of birth</label>
+      <label>
+        Date of birth
+      </label>
 
       <input
         id="personalBirthday"
         class="input"
         type="date"
-        onchange="calculateAge()">
+        onchange="calculateAge()"
+      >
 
     </div>
 
 
     <div class="field">
 
-      <label>Age</label>
+      <label>
+        Age
+      </label>
 
       <input
         id="personalAge"
         class="input"
         readonly
-        placeholder="Calculated automatically">
+      >
 
     </div>
 
 
     <div class="field">
 
-      <label>City</label>
+      <label>
+        City
+      </label>
 
       <input
         id="personalCity"
         class="input"
-        type="text"
-        placeholder="Amsterdam">
+      >
 
     </div>
 
 
     <button
       class="primary-btn"
-      onclick="savePersonalDetails()">
-      Save details
+      onclick="savePersonalDetails()"
+    >
+      Save Details
     </button>
 
   </div>
@@ -2204,17 +2853,19 @@
 </div>
 
 
-<!-- ================= PAYMENT HISTORY ================= -->
+<!-- PAYMENT HISTORY -->
 
 <div
   id="paymentModal"
-  class="modal-overlay hidden">
+  class="modal-overlay hidden"
+>
 
   <div class="modal">
 
     <button
       class="modal-close"
-      onclick="closeModal('paymentModal')">
+      onclick="closeModal('paymentModal')"
+    >
       ×
     </button>
 
@@ -2223,7 +2874,7 @@
     </h2>
 
     <p class="modal-description">
-      Your tournament payments appear here.
+      Your tournament payments.
     </p>
 
     <div id="paymentHistory"></div>
@@ -2235,1315 +2886,2116 @@
 
 <script>
 
-  /*
-  ======================================================
-  SUPABASE SETTINGS
-
-  DO NOT CHANGE anything else yet.
-
-  Later replace these with your real Supabase values.
-  ======================================================
-  */
-
-  const SUPABASE_URL =
+const SUPABASE_URL =
   "https://bgdywmppguqwnxkespss.supabase.co";
-  
-  const SUPABASE_ANON_KEY =
+
+const SUPABASE_ANON_KEY =
   "sb_publishable_Cyicx2YoOGyT2m-HNQyQVg_pwJkYvEh";
-  
-
-  let sb = null;
 
 
-  if (
-    SUPABASE_URL !== "PASTE_YOUR_SUPABASE_URL_HERE" &&
-    SUPABASE_ANON_KEY !== "PASTE_YOUR_SUPABASE_ANON_KEY_HERE"
-  ) {
+let sb = null;
 
-    sb = window.supabase.createClient(
+
+if (
+  SUPABASE_ANON_KEY !==
+  "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE"
+) {
+
+  sb =
+    window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
 
+}
+
+
+let authMode =
+  "login";
+
+
+let currentUser =
+  null;
+
+
+const screens = {
+
+  discover:
+    document.getElementById(
+      "discoverScreen"
+    ),
+
+  tournament:
+    document.getElementById(
+      "tournamentScreen"
+    ),
+
+  calendar:
+    document.getElementById(
+      "calendarScreen"
+    ),
+
+  friends:
+    document.getElementById(
+      "friendsScreen"
+    ),
+
+  profile:
+    document.getElementById(
+      "profileScreen"
+    )
+
+};
+
+
+const FOOTBALL_ID =
+  "11111111-1111-4111-8111-111111111111";
+
+
+const PADEL_ID =
+  "22222222-2222-4222-8222-222222222222";
+
+
+let currentTournament = {
+
+  id:
+    FOOTBALL_ID,
+
+  name:
+    "Amsterdam Amateur Cup",
+
+  sport:
+    "Football",
+
+  fee:
+    "€45",
+
+  prize:
+    "€500",
+
+  players:
+    "23/32",
+
+  teamSize:
+    "11",
+
+  location:
+    "Amsterdam · Sportpark De Toekomst",
+
+  venue:
+    "Sportpark De Toekomst, Amsterdam",
+
+  date:
+    "Sun Sep 06 2026",
+
+  description:
+    "Amsterdam's amateur football tournament.",
+
+  image:
+    "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=1000&q=85"
+
+};
+
+
+/* AUTH */
+
+
+function switchAuth(mode) {
+
+  authMode =
+    mode;
+
+
+  const signup =
+    mode === "signup";
+
+
+  document.getElementById(
+    "signupFields"
+  ).classList.toggle(
+    "hidden",
+    !signup
+  );
+
+
+  document.getElementById(
+    "confirmPasswordField"
+  ).classList.toggle(
+    "hidden",
+    !signup
+  );
+
+
+  document.getElementById(
+    "loginTab"
+  ).classList.toggle(
+    "active",
+    !signup
+  );
+
+
+  document.getElementById(
+    "signupTab"
+  ).classList.toggle(
+    "active",
+    signup
+  );
+
+
+  document.getElementById(
+    "authTitle"
+  ).innerText =
+    signup
+      ? "Create your account."
+      : "Welcome back.";
+
+
+  document.getElementById(
+    "authMainButton"
+  ).innerText =
+    signup
+      ? "Create account"
+      : "Log in";
+
+}
+
+
+async function handleAuth() {
+
+  if (authMode === "signup") {
+
+    await signUp();
+
   }
 
+  else {
 
-  let authMode = "login";
-
-
-  let currentTournament = {
-    name: "Amsterdam Amateur Cup",
-    sport: "⚽ Football",
-    fee: "€45",
-    prize: "€500",
-    players: "23/32",
-    teamSize: "11",
-    location: "Amsterdam · Sportpark De Toekomst",
-    venue: "Sportpark De Toekomst, Amsterdam",
-    date: "Sun Sep 06 2026",
-    description:
-      "Amsterdam's amateur football tournament. Register individually and your team will be announced when registration closes."
-  };
-
-
-  const screens = {
-
-    discover:
-      document.getElementById("discoverScreen"),
-
-    tournament:
-      document.getElementById("tournamentScreen"),
-
-    calendar:
-      document.getElementById("calendarScreen"),
-
-    profile:
-      document.getElementById("profileScreen")
-
-  };
-
-
-  /* ================= AUTH UI ================= */
-
-
-  function switchAuth(mode) {
-
-    authMode = mode;
-
-    const signupFields =
-      document.getElementById("signupFields");
-
-    const confirmField =
-      document.getElementById("confirmPasswordField");
-
-    const loginTab =
-      document.getElementById("loginTab");
-
-    const signupTab =
-      document.getElementById("signupTab");
-
-    const title =
-      document.getElementById("authTitle");
-
-    const description =
-      document.getElementById("authDescription");
-
-    const button =
-      document.getElementById("authMainButton");
-
-
-    clearAuthMessage();
-
-
-    if (mode === "signup") {
-
-      signupFields.classList.remove("hidden");
-
-      confirmField.classList.remove("hidden");
-
-      loginTab.classList.remove("active");
-
-      signupTab.classList.add("active");
-
-      title.innerText =
-        "Create your account.";
-
-      description.innerText =
-        "Sign up to join SportsCup tournaments.";
-
-      button.innerText =
-        "Create account";
-
-      document.getElementById(
-        "authPassword"
-      ).autocomplete =
-        "new-password";
-
-    }
-
-    else {
-
-      signupFields.classList.add("hidden");
-
-      confirmField.classList.add("hidden");
-
-      signupTab.classList.remove("active");
-
-      loginTab.classList.add("active");
-
-      title.innerText =
-        "Welcome back.";
-
-      description.innerText =
-        "Log in to join tournaments and follow your competitions.";
-
-      button.innerText =
-        "Log in";
-
-      document.getElementById(
-        "authPassword"
-      ).autocomplete =
-        "current-password";
-
-    }
+    await signIn();
 
   }
 
-
-  async function handleAuth() {
-
-    if (authMode === "signup") {
-      await signUp();
-    }
-
-    else {
-      await signIn();
-    }
-
-  }
+}
 
 
-  async function signUp() {
+async function signUp() {
 
-    if (!sb) {
-
-      showAuthMessage(
-        "Supabase is not connected yet. Add your Supabase URL and anon key at the bottom of the code.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const firstName =
-      document.getElementById("firstName").value.trim();
-
-    const lastName =
-      document.getElementById("lastName").value.trim();
-
-    const email =
-      document.getElementById("authEmail").value.trim();
-
-    const password =
-      document.getElementById("authPassword").value;
-
-    const confirmPassword =
-      document.getElementById("confirmPassword").value;
-
-
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password
-    ) {
-
-      showAuthMessage(
-        "Please complete all fields.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (password.length < 8) {
-
-      showAuthMessage(
-        "Password must contain at least 8 characters.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (password !== confirmPassword) {
-
-      showAuthMessage(
-        "Passwords do not match.",
-        "error"
-      );
-
-      return;
-    }
-
-    const { data, error } =
-      await sb.auth.signUp({
-        
-        email: email,
-        
-        password: password,
-        
-        options: {
-          
-          emailRedirectTo:
-            "https://alinsikar.github.io/sportscup/",
-          
-          data: {
-            first_name: firstName,
-            last_name: lastName,
-            full_name: firstName + " " + lastName
-          }
-        }
-      });
-
-
-    
-
-
-    if (error) {
-
-      showAuthMessage(
-        error.message,
-        "error"
-      );
-
-      return;
-
-    }
-
+  if (!sb) {
 
     showAuthMessage(
-      "Account created. Check your email if confirmation is required.",
+      "Paste your Supabase publishable key into the code first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const firstName =
+    document.getElementById(
+      "firstName"
+    ).value.trim();
+
+
+  const lastName =
+    document.getElementById(
+      "lastName"
+    ).value.trim();
+
+
+  const email =
+    document.getElementById(
+      "authEmail"
+    ).value.trim();
+
+
+  const password =
+    document.getElementById(
+      "authPassword"
+    ).value;
+
+
+  const confirm =
+    document.getElementById(
+      "confirmPassword"
+    ).value;
+
+
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password
+  ) {
+
+    showAuthMessage(
+      "Complete all fields.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if (
+    password !== confirm
+  ) {
+
+    showAuthMessage(
+      "Passwords do not match.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb.auth.signUp({
+
+      email,
+      password,
+
+      options: {
+
+        emailRedirectTo:
+          window.location.origin +
+          window.location.pathname,
+
+        data: {
+
+          first_name:
+            firstName,
+
+          last_name:
+            lastName,
+
+          full_name:
+            firstName +
+            " " +
+            lastName
+
+        }
+
+      }
+
+    });
+
+
+  if (error) {
+
+    showAuthMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if (data.session) {
+
+    await loadUser();
+
+    showMainApp();
+
+  }
+
+  else {
+
+    showAuthMessage(
+      "Account created. Please confirm your email.",
       "success"
     );
 
+  }
 
-    if (data.session) {
+}
 
-      await loadSupabaseUser();
 
-      showMainApp();
+async function signIn() {
 
-    }
+  if (!sb) {
+
+    showAuthMessage(
+      "Paste your Supabase publishable key first.",
+      "error"
+    );
+
+    return;
 
   }
 
 
-  async function signIn() {
+  const email =
+    document.getElementById(
+      "authEmail"
+    ).value.trim();
 
-    if (!sb) {
 
-      showAuthMessage(
-        "Supabase is not connected yet. Add your Supabase URL and anon key at the bottom of the code.",
-        "error"
+  const password =
+    document.getElementById(
+      "authPassword"
+    ).value;
+
+
+  const {
+    error
+  } =
+    await sb.auth.signInWithPassword({
+
+      email,
+      password
+
+    });
+
+
+  if (error) {
+
+    showAuthMessage(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  await loadUser();
+
+  showMainApp();
+
+}
+
+
+async function signInWithGoogle() {
+
+  if (!sb) {
+
+    showAuthMessage(
+      "Connect Supabase first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+    await sb.auth.signInWithOAuth({
+
+      provider:
+        "google",
+
+      options: {
+
+        redirectTo:
+          window.location.origin +
+          window.location.pathname
+
+      }
+
+    });
+
+
+  if (error) {
+
+    showAuthMessage(
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+function showAuthMessage(
+  message,
+  type
+) {
+
+  const el =
+    document.getElementById(
+      "authMessage"
+    );
+
+
+  el.className =
+    "auth-message " +
+    type;
+
+
+  el.innerText =
+    message;
+
+}
+
+
+async function logout() {
+
+  if (sb) {
+
+    await sb.auth.signOut();
+
+  }
+
+
+  document.getElementById(
+    "mainApp"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "authScreen"
+  ).classList.remove(
+    "hidden"
+  );
+
+}
+
+
+async function loadUser() {
+
+  if (!sb) return;
+
+
+  const {
+    data
+  } =
+    await sb.auth.getUser();
+
+
+  if (!data.user) return;
+
+
+  currentUser =
+    data.user;
+
+
+  const meta =
+    currentUser.user_metadata ||
+    {};
+
+
+  const name =
+    meta.full_name ||
+    meta.name ||
+    currentUser.email.split("@")[0];
+
+
+  document.getElementById(
+    "profileName"
+  ).innerText =
+    name;
+
+
+  document.getElementById(
+    "profileEmail"
+  ).innerText =
+    currentUser.email;
+
+
+  document.getElementById(
+    "helloName"
+  ).innerText =
+    name.split(" ")[0];
+
+
+  document.getElementById(
+    "profileAvatar"
+  ).innerText =
+    name.charAt(0).toUpperCase();
+
+}
+
+
+function showMainApp() {
+
+  document.getElementById(
+    "authScreen"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "mainApp"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  showScreen(
+    "discover"
+  );
+
+}
+
+
+/* NAV */
+
+
+function showScreen(name) {
+
+  Object.values(
+    screens
+  ).forEach(
+    screen =>
+      screen.classList.add(
+        "hidden"
+      )
+  );
+
+
+  screens[name]
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document.getElementById(
+    "bottomNav"
+  ).classList.toggle(
+    "hidden",
+    name === "tournament"
+  );
+
+
+  document.querySelectorAll(
+    ".nav-item"
+  ).forEach(
+    item => {
+
+      item.classList.toggle(
+        "active",
+        item.dataset.screen === name
       );
 
-      return;
+    }
+  );
+
+
+  window.scrollTo(
+    0,
+    0
+  );
+
+}
+
+
+/* FILTER */
+
+
+function filterTournaments(
+  sport,
+  button
+) {
+
+  document.querySelectorAll(
+    ".filter"
+  ).forEach(
+    btn =>
+      btn.classList.remove(
+        "active"
+      )
+  );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  document.querySelectorAll(
+    ".tournament-item"
+  ).forEach(
+    item => {
+
+      item.style.display =
+        sport === "all" ||
+        item.dataset.sport === sport
+          ? ""
+          : "none";
+
+    }
+  );
+
+}
+
+
+/* TOURNAMENT */
+
+
+function openFootballTournament() {
+
+  currentTournament = {
+
+    id:
+      FOOTBALL_ID,
+
+    name:
+      "Amsterdam Amateur Cup",
+
+    sport:
+      "Football",
+
+    fee:
+      "€45",
+
+    prize:
+      "€500",
+
+    players:
+      "23/32",
+
+    teamSize:
+      "11",
+
+    location:
+      "Amsterdam · Sportpark De Toekomst",
+
+    venue:
+      "Sportpark De Toekomst, Amsterdam",
+
+    date:
+      "Sun Sep 06 2026",
+
+    description:
+      "Amsterdam's amateur football tournament. Join individually or create a team with friends.",
+
+    image:
+      "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=1000&q=85"
+
+  };
+
+
+  renderTournament();
+
+  showScreen(
+    "tournament"
+  );
+
+}
+
+
+function openPadelTournament() {
+
+  currentTournament = {
+
+    id:
+      PADEL_ID,
+
+    name:
+      "Rotterdam Padel Open",
+
+    sport:
+      "Padel",
+
+    fee:
+      "€30",
+
+    prize:
+      "€250",
+
+    players:
+      "12/16",
+
+    teamSize:
+      "2",
+
+    location:
+      "Rotterdam · Padel City Rotterdam",
+
+    venue:
+      "Padel City Rotterdam",
+
+    date:
+      "Sun Sep 13 2026",
+
+    description:
+      "A competitive padel tournament in Rotterdam.",
+
+    image:
+      "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1000&q=85"
+
+  };
+
+
+  renderTournament();
+
+  showScreen(
+    "tournament"
+  );
+
+}
+
+
+function renderTournament() {
+
+  document.getElementById(
+    "detailTitle"
+  ).innerText =
+    currentTournament.name;
+
+
+  document.getElementById(
+    "detailSport"
+  ).innerText =
+    currentTournament.sport;
+
+
+  document.getElementById(
+    "detailFee"
+  ).innerText =
+    currentTournament.fee;
+
+
+  document.getElementById(
+    "detailPrize"
+  ).innerText =
+    currentTournament.prize;
+
+
+  document.getElementById(
+    "detailPlayers"
+  ).innerText =
+    currentTournament.players;
+
+
+  document.getElementById(
+    "detailTeamSize"
+  ).innerText =
+    currentTournament.teamSize;
+
+
+  document.getElementById(
+    "detailLocation"
+  ).innerText =
+    currentTournament.location;
+
+
+  document.getElementById(
+    "detailVenue"
+  ).innerText =
+    currentTournament.venue;
+
+
+  document.getElementById(
+    "detailDate"
+  ).innerText =
+    currentTournament.date;
+
+
+  document.getElementById(
+    "detailDescription"
+  ).innerText =
+    currentTournament.description;
+
+
+  document.getElementById(
+    "joinPrice"
+  ).innerText =
+    currentTournament.fee;
+
+
+  document.getElementById(
+    "tournamentHero"
+  ).style.backgroundImage =
+
+    `linear-gradient(
+      to top,
+      var(--bg) 5%,
+      rgba(11,13,15,.2) 72%
+    ),
+    url("${currentTournament.image}")`;
+
+}
+
+
+function showTournamentTab(
+  tab,
+  button
+) {
+
+  [
+    "infoTab",
+    "scheduleTab",
+    "bracketTab",
+    "teamsTab"
+  ].forEach(
+    id =>
+      document.getElementById(
+        id
+      ).classList.add(
+        "hidden"
+      )
+  );
+
+
+  document.getElementById(
+    tab + "Tab"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  document.querySelectorAll(
+    ".tab-button"
+  ).forEach(
+    btn =>
+      btn.classList.remove(
+        "active"
+      )
+  );
+
+
+  button.classList.add(
+    "active"
+  );
+
+}
+
+
+/* PAYMENT */
+
+
+async function startCheckout() {
+
+  if (!sb) {
+
+    alert(
+      "Connect Supabase first."
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data: {
+      session
+    }
+  } =
+    await sb.auth.getSession();
+
+
+  if (!session) {
+
+    alert(
+      "Please log in first."
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb.functions.invoke(
+      "create-checkout",
+      {
+
+        body: {
+
+          tournamentId:
+            currentTournament.id
+
+        }
+
+      }
+    );
+
+
+  if (error) {
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "Secure payment backend is not connected yet. We still need to configure Stripe."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    data &&
+    data.url
+  ) {
+
+    window.location.href =
+      data.url;
+
+  }
+
+}
+
+
+/* CALENDAR */
+
+
+let calendarYear =
+  2026;
+
+
+let calendarMonth =
+  8;
+
+
+const calendarEvents = {
+
+  "2026-07-06": {
+
+    title:
+      "Summer Football Session",
+
+    subtitle:
+      "Football · Amsterdam"
+
+  },
+
+
+  "2026-09-06": {
+
+    title:
+      "Amsterdam Amateur Cup",
+
+    subtitle:
+      "Football · 10:00 · Amsterdam"
+
+  },
+
+
+  "2026-09-13": {
+
+    title:
+      "Rotterdam Padel Open",
+
+    subtitle:
+      "Padel · 12:00 · Rotterdam"
+
+  }
+
+};
+
+
+function openCalendarModal() {
+
+  renderCalendar();
+
+  openModal(
+    "calendarModal"
+  );
+
+}
+
+
+function changeCalendarMonth(
+  direction
+) {
+
+  calendarMonth +=
+    direction;
+
+
+  if (
+    calendarMonth < 0
+  ) {
+
+    calendarMonth =
+      11;
+
+    calendarYear--;
+
+  }
+
+
+  if (
+    calendarMonth > 11
+  ) {
+
+    calendarMonth =
+      0;
+
+    calendarYear++;
+
+  }
+
+
+  renderCalendar();
+
+}
+
+
+function renderCalendar() {
+
+  const monthNames = [
+
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+
+  ];
+
+
+  document.getElementById(
+    "calendarMonthTitle"
+  ).innerText =
+
+    monthNames[
+      calendarMonth
+    ] +
+    " " +
+    calendarYear;
+
+
+  const grid =
+    document.getElementById(
+      "calendarGrid"
+    );
+
+
+  grid.innerHTML =
+    "";
+
+
+  const firstDay =
+    new Date(
+      calendarYear,
+      calendarMonth,
+      1
+    );
+
+
+  let startDay =
+    firstDay.getDay();
+
+
+  if (
+    startDay === 0
+  ) {
+
+    startDay =
+      7;
+
+  }
+
+
+  const daysInMonth =
+    new Date(
+      calendarYear,
+      calendarMonth + 1,
+      0
+    ).getDate();
+
+
+  const previousMonthDays =
+    new Date(
+      calendarYear,
+      calendarMonth,
+      0
+    ).getDate();
+
+
+  for (
+    let i = startDay - 1;
+    i > 0;
+    i--
+  ) {
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+
+    button.className =
+      "calendar-day other-month";
+
+
+    button.innerText =
+      previousMonthDays -
+      i +
+      1;
+
+
+    grid.appendChild(
+      button
+    );
+
+  }
+
+
+  for (
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ) {
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+
+    button.className =
+      "calendar-day";
+
+
+    button.innerText =
+      day;
+
+
+    const dateKey =
+
+      `${calendarYear}-${String(
+        calendarMonth + 1
+      ).padStart(
+        2,
+        "0"
+      )}-${String(
+        day
+      ).padStart(
+        2,
+        "0"
+      )}`;
+
+
+    if (
+      calendarEvents[
+        dateKey
+      ]
+    ) {
+
+      button.classList.add(
+        "has-event"
+      );
+
+
+      button.onclick =
+        function() {
+
+
+          document.querySelectorAll(
+            ".calendar-day"
+          ).forEach(
+            btn =>
+              btn.classList.remove(
+                "selected"
+              )
+          );
+
+
+          button.classList.add(
+            "selected"
+          );
+
+
+          showCalendarEvent(
+            dateKey
+          );
+
+        };
+
     }
 
 
-    const email =
-      document.getElementById("authEmail").value.trim();
+    grid.appendChild(
+      button
+    );
 
-    const password =
-      document.getElementById("authPassword").value;
+  }
 
 
-    if (!email || !password) {
+  const remaining =
+    42 -
+    grid.children.length;
 
-      showAuthMessage(
-        "Enter your email and password.",
-        "error"
+
+  for (
+    let i = 1;
+    i <= remaining;
+    i++
+  ) {
+
+    const button =
+      document.createElement(
+        "button"
       );
 
-      return;
 
-    }
+    button.className =
+      "calendar-day other-month";
 
 
-    const { error } =
-      await sb.auth.signInWithPassword({
+    button.innerText =
+      i;
 
-        email: email,
-        password: password
+
+    grid.appendChild(
+      button
+    );
+
+  }
+
+
+  document.getElementById(
+    "calendarEventDetail"
+  ).innerHTML =
+
+    `<span class="muted">
+      Select a blue date to view the event.
+    </span>`;
+
+}
+
+
+function showCalendarEvent(
+  dateKey
+) {
+
+  const event =
+    calendarEvents[
+      dateKey
+    ];
+
+
+  if (!event) return;
+
+
+  document.getElementById(
+    "calendarEventDetail"
+  ).innerHTML =
+
+    `<strong>
+      ${event.title}
+    </strong>
+
+    <span class="muted">
+      ${event.subtitle}
+    </span>`;
+
+}
+
+
+/* FRIENDS */
+
+
+async function searchFriends() {
+
+  const query =
+    document.getElementById(
+      "friendSearch"
+    ).value.trim();
+
+
+  const results =
+    document.getElementById(
+      "friendSearchResults"
+    );
+
+
+  if (!sb) {
+
+    results.innerHTML =
+      `<div class="muted small">
+        Connect Supabase first.
+      </div>`;
+
+    return;
+
+  }
+
+
+  if (
+    query.length < 2
+  ) {
+
+    results.innerHTML =
+      `<div class="muted small">
+        Type at least two characters.
+      </div>`;
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from(
+        "profiles"
+      )
+      .select(
+        "id,display_name,first_name,last_name,city"
+      )
+      .or(
+        `display_name.ilike.%${query}%,first_name.ilike.%${query}%,last_name.ilike.%${query}%`
+      )
+      .neq(
+        "id",
+        currentUser.id
+      );
+
+
+  if (error) {
+
+    results.innerHTML =
+      `<div class="muted small">
+        Friend search database is not ready yet.
+      </div>`;
+
+    return;
+
+  }
+
+
+  results.innerHTML =
+    data
+      .map(
+        person => {
+
+
+          const name =
+
+            person.display_name ||
+
+            `${person.first_name || ""}
+            ${person.last_name || ""}`;
+
+
+          return `
+
+            <div class="friend-row">
+
+              <div class="friend-avatar">
+
+                ${name
+                  .trim()
+                  .charAt(0)
+                  .toUpperCase()}
+
+              </div>
+
+              <div class="friend-details">
+
+                <strong>
+                  ${name}
+                </strong>
+
+                <span>
+                  ${person.city || "SportsCup"}
+                </span>
+
+              </div>
+
+              <button
+                class="small-action fill"
+                onclick="sendFriendRequest('${person.id}')"
+              >
+                Add
+              </button>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+async function sendFriendRequest(
+  receiverId
+) {
+
+  const {
+    error
+  } =
+    await sb
+      .from(
+        "friendships"
+      )
+      .insert({
+
+        requester_id:
+          currentUser.id,
+
+        receiver_id:
+          receiverId,
+
+        status:
+          "pending"
 
       });
 
 
-    if (error) {
+  if (error) {
 
-      showAuthMessage(
-        error.message,
-        "error"
+    alert(
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Friend request sent."
+  );
+
+}
+
+
+async function openContacts() {
+
+  if (
+    !("contacts" in navigator) ||
+    !navigator.contacts.select
+  ) {
+
+    alert(
+      "Contact access isn't supported in this browser. You can still search SportsCup members manually."
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    const properties =
+      await navigator.contacts.getProperties();
+
+
+    const wanted =
+      [
+        "name",
+        "email",
+        "tel"
+      ].filter(
+        property =>
+          properties.includes(
+            property
+          )
       );
 
-      return;
+
+    const contacts =
+      await navigator.contacts.select(
+        wanted,
+        {
+          multiple:
+            true
+        }
+      );
+
+
+    const results =
+      document.getElementById(
+        "friendSearchResults"
+      );
+
+
+    results.innerHTML =
+      contacts
+        .map(
+          contact => {
+
+
+            const name =
+              contact.name?.[0] ||
+              "Contact";
+
+
+            return `
+
+              <div class="friend-row">
+
+                <div class="friend-avatar">
+
+                  ${name
+                    .charAt(0)
+                    .toUpperCase()}
+
+                </div>
+
+                <div class="friend-details">
+
+                  <strong>
+                    ${name}
+                  </strong>
+
+                  <span>
+                    Your contact
+                  </span>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+/* TEAM */
+
+
+async function createTeam() {
+
+  if (
+    !sb ||
+    !currentUser
+  ) {
+
+    return;
+
+  }
+
+
+  const name =
+    document.getElementById(
+      "teamName"
+    ).value.trim();
+
+
+  const sport =
+    document.getElementById(
+      "teamSport"
+    ).value;
+
+
+  if (!name) {
+
+    alert(
+      "Enter a team name."
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from(
+        "teams"
+      )
+      .insert({
+
+        name,
+        sport,
+
+        owner_id:
+          currentUser.id
+
+      })
+      .select()
+      .single();
+
+
+  if (error) {
+
+    alert(
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  await sb
+    .from(
+      "team_members"
+    )
+    .insert({
+
+      team_id:
+        data.id,
+
+      user_id:
+        currentUser.id,
+
+      role:
+        "owner"
+
+    });
+
+
+  closeModal(
+    "createTeamModal"
+  );
+
+
+  document.getElementById(
+    "myTeam"
+  ).innerHTML =
+
+    `<div class="team-card">
+
+      <div class="brand-small">
+        ${sport.toUpperCase()}
+      </div>
+
+      <h3>
+        ${name}
+      </h3>
+
+      <p>
+        Your team has been created.
+      </p>
+
+      <button
+        class="secondary-btn"
+      >
+        Invite Friends
+      </button>
+
+    </div>`;
+
+}
+
+
+/* PROFILE */
+
+
+async function openPersonalDetails() {
+
+  if (!currentUser) return;
+
+
+  const meta =
+    currentUser.user_metadata ||
+    {};
+
+
+  document.getElementById(
+    "personalName"
+  ).value =
+    meta.full_name ||
+    "";
+
+
+  document.getElementById(
+    "personalEmail"
+  ).value =
+    currentUser.email;
+
+
+  document.getElementById(
+    "personalBirthday"
+  ).value =
+    meta.birthday ||
+    "";
+
+
+  document.getElementById(
+    "personalCity"
+  ).value =
+    meta.city ||
+    "";
+
+
+  calculateAge();
+
+
+  openModal(
+    "personalModal"
+  );
+
+}
+
+
+function calculateAge() {
+
+  const value =
+    document.getElementById(
+      "personalBirthday"
+    ).value;
+
+
+  if (!value) {
+
+    document.getElementById(
+      "personalAge"
+    ).value =
+      "";
+
+    return;
+
+  }
+
+
+  const birth =
+    new Date(
+      value
+    );
+
+
+  const today =
+    new Date();
+
+
+  let age =
+    today.getFullYear() -
+    birth.getFullYear();
+
+
+  const month =
+    today.getMonth() -
+    birth.getMonth();
+
+
+  if (
+    month < 0 ||
+    (
+      month === 0 &&
+      today.getDate() <
+      birth.getDate()
+    )
+  ) {
+
+    age--;
+
+  }
+
+
+  document.getElementById(
+    "personalAge"
+  ).value =
+    age;
+
+}
+
+
+async function savePersonalDetails() {
+
+  const name =
+    document.getElementById(
+      "personalName"
+    ).value.trim();
+
+
+  const birthday =
+    document.getElementById(
+      "personalBirthday"
+    ).value;
+
+
+  const city =
+    document.getElementById(
+      "personalCity"
+    ).value.trim();
+
+
+  await sb.auth.updateUser({
+
+    data: {
+
+      full_name:
+        name,
+
+      birthday,
+      city
 
     }
 
+  });
 
-    await loadSupabaseUser();
+
+  await loadUser();
+
+
+  closeModal(
+    "personalModal"
+  );
+
+}
+
+
+async function openPaymentHistory() {
+
+  const container =
+    document.getElementById(
+      "paymentHistory"
+    );
+
+
+  if (
+    !sb ||
+    !currentUser
+  ) {
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from(
+        "payments"
+      )
+      .select(
+        "*"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:
+            false
+        }
+      );
+
+
+  if (
+    error ||
+    !data ||
+    data.length === 0
+  ) {
+
+    container.innerHTML =
+
+      `<div class="payment-box">
+
+        <strong>
+          No payments yet
+        </strong>
+
+        <p
+          class="muted small"
+          style="margin-top:5px"
+        >
+          Completed tournament payments will appear here.
+        </p>
+
+      </div>`;
+
+  }
+
+  else {
+
+    container.innerHTML =
+
+      data
+        .map(
+          payment => `
+
+            <div class="payment-box">
+
+              <strong>
+
+                €${(
+                  payment.amount_cents /
+                  100
+                ).toFixed(2)}
+
+              </strong>
+
+              <div
+                style="
+                  display:flex;
+                  justify-content:space-between;
+                  margin-top:10px
+                "
+              >
+
+                <span class="muted small">
+
+                  ${new Date(
+                    payment.created_at
+                  ).toLocaleDateString()}
+
+                </span>
+
+                <span
+                  style="
+                    color:var(--green);
+                    font-weight:900
+                  "
+                >
+
+                  ${payment.status}
+
+                </span>
+
+              </div>
+
+            </div>
+
+          `
+        )
+        .join("");
+
+  }
+
+
+  openModal(
+    "paymentModal"
+  );
+
+}
+
+
+/* MODAL */
+
+
+function openModal(id) {
+
+  document.getElementById(
+    id
+  ).classList.remove(
+    "hidden"
+  );
+
+}
+
+
+function closeModal(id) {
+
+  document.getElementById(
+    id
+  ).classList.add(
+    "hidden"
+  );
+
+}
+
+
+window.addEventListener(
+  "click",
+  function(event) {
+
+    if (
+      event.target.classList.contains(
+        "modal-overlay"
+      )
+    ) {
+
+      event.target.classList.add(
+        "hidden"
+      );
+
+    }
+
+  }
+);
+
+
+/* STARTUP */
+
+
+async function initializeApp() {
+
+  if (!sb) {
+
+    return;
+
+  }
+
+
+  const {
+    data: {
+      session
+    }
+  } =
+    await sb.auth.getSession();
+
+
+  if (session) {
+
+    await loadUser();
 
     showMainApp();
 
   }
 
 
-  async function signInWithGoogle() {
+  sb.auth.onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
 
-    if (!sb) {
+      if (session) {
 
-      showAuthMessage(
-        "Google login is ready in the code, but Supabase must be connected first.",
-        "error"
-      );
+        await loadUser();
 
-      return;
-
-    }
-
-
-    const { error } =
-      await sb.auth.signInWithOAuth({
-
-        provider: "google",
-
-        options: {
-          redirectTo:
-            window.location.origin +
-            window.location.pathname
-        }
-
-      });
-
-
-    if (error) {
-
-      showAuthMessage(
-        error.message,
-        "error"
-      );
-
-    }
-
-  }
-
-
-  async function logout() {
-
-    if (sb) {
-      await sb.auth.signOut();
-    }
-
-    document
-      .getElementById("mainApp")
-      .classList.add("hidden");
-
-    document
-      .getElementById("authScreen")
-      .classList.remove("hidden");
-
-  }
-
-
-  function showAuthMessage(message,type) {
-
-    const element =
-      document.getElementById("authMessage");
-
-    element.className =
-      "auth-message " + type;
-
-    element.innerText =
-      message;
-
-  }
-
-
-  function clearAuthMessage() {
-
-    const element =
-      document.getElementById("authMessage");
-
-    element.className =
-      "auth-message";
-
-    element.innerText =
-      "";
-
-  }
-
-
-  async function loadSupabaseUser() {
-
-    if (!sb) {
-      return;
-    }
-
-
-    const { data } =
-      await sb.auth.getUser();
-
-
-    if (!data.user) {
-      return;
-    }
-
-
-    const user =
-      data.user;
-
-
-    const metadata =
-      user.user_metadata || {};
-
-
-    const name =
-      metadata.full_name ||
-      metadata.name ||
-      metadata.first_name ||
-      user.email.split("@")[0];
-
-
-    document.getElementById(
-      "profileName"
-    ).innerText =
-      name;
-
-
-    document.getElementById(
-      "profileEmail"
-    ).innerText =
-      user.email;
-
-
-    document.getElementById(
-      "helloName"
-    ).innerText =
-      name.split(" ")[0];
-
-
-    document.getElementById(
-      "profileAvatar"
-    ).innerText =
-      name.charAt(0).toUpperCase();
-
-
-    localStorage.setItem(
-      "sportscupName",
-      name
-    );
-
-
-    localStorage.setItem(
-      "sportscupEmail",
-      user.email
-    );
-
-  }
-
-
-  function showMainApp() {
-
-    document
-      .getElementById("authScreen")
-      .classList.add("hidden");
-
-    document
-      .getElementById("mainApp")
-      .classList.remove("hidden");
-
-    showScreen("discover");
-
-  }
-
-
-  /* ================= SCREEN NAVIGATION ================= */
-
-
-  function showScreen(name) {
-
-    Object.values(screens)
-      .forEach(screen => {
-        screen.classList.add("hidden");
-      });
-
-
-    screens[name]
-      .classList.remove("hidden");
-
-
-    const nav =
-      document.getElementById("bottomNav");
-
-
-    if (name === "tournament") {
-
-      nav.classList.add("hidden");
-
-    }
-
-    else {
-
-      nav.classList.remove("hidden");
-
-    }
-
-
-    document
-      .querySelectorAll(".nav-item")
-      .forEach(item => {
-
-        item.classList.remove("active");
-
-        if (
-          item.dataset.screen === name
-        ) {
-
-          item.classList.add("active");
-
-        }
-
-      });
-
-
-    window.scrollTo(0,0);
-
-  }
-
-
-  /* ================= FILTER ================= */
-
-
-  function filterTournaments(
-    sport,
-    button
-  ) {
-
-    document
-      .querySelectorAll(".filter")
-      .forEach(btn =>
-        btn.classList.remove("active")
-      );
-
-
-    button.classList.add("active");
-
-
-    document
-      .querySelectorAll(".tournament-item")
-      .forEach(item => {
-
-        if (
-          sport === "all" ||
-          item.dataset.sport === sport
-        ) {
-
-          item.style.display = "";
-
-        }
-
-        else {
-
-          item.style.display =
-            "none";
-
-        }
-
-      });
-
-  }
-
-
-  /* ================= TOURNAMENTS ================= */
-
-
-  function openFootballTournament() {
-
-    currentTournament = {
-
-      name:
-        "Amsterdam Amateur Cup",
-
-      sport:
-        "⚽ Football",
-
-      fee:
-        "€45",
-
-      prize:
-        "€500",
-
-      players:
-        "23/32",
-
-      teamSize:
-        "11",
-
-      location:
-        "Amsterdam · Sportpark De Toekomst",
-
-      venue:
-        "Sportpark De Toekomst, Amsterdam",
-
-      date:
-        "Sun Sep 06 2026",
-
-      description:
-        "Amsterdam's amateur football tournament. Register individually and your team will be announced when registration closes.",
-
-      image:
-        "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=1000&q=85"
-
-    };
-
-
-    renderTournament();
-
-    showScreen("tournament");
-
-  }
-
-
-  function openPadelTournament() {
-
-    currentTournament = {
-
-      name:
-        "Rotterdam Padel Open",
-
-      sport:
-        "🎾 Padel",
-
-      fee:
-        "€30",
-
-      prize:
-        "€250",
-
-      players:
-        "12/16",
-
-      teamSize:
-        "2",
-
-      location:
-        "Rotterdam · Padel City Rotterdam",
-
-      venue:
-        "Padel City Rotterdam",
-
-      date:
-        "Sun Sep 13 2026",
-
-      description:
-        "A competitive padel tournament in Rotterdam. Register individually and final pairs are announced before the event.",
-
-      image:
-        "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1000&q=85"
-
-    };
-
-
-    renderTournament();
-
-    showScreen("tournament");
-
-  }
-
-
-  function renderTournament() {
-
-    document.getElementById(
-      "detailTitle"
-    ).innerText =
-      currentTournament.name;
-
-
-    document.getElementById(
-      "detailSport"
-    ).innerText =
-      currentTournament.sport;
-
-
-    document.getElementById(
-      "detailFee"
-    ).innerText =
-      currentTournament.fee;
-
-
-    document.getElementById(
-      "detailPrize"
-    ).innerText =
-      currentTournament.prize;
-
-
-    document.getElementById(
-      "detailPlayers"
-    ).innerText =
-      currentTournament.players;
-
-
-    document.getElementById(
-      "detailTeamSize"
-    ).innerText =
-      currentTournament.teamSize;
-
-
-    document.getElementById(
-      "detailLocation"
-    ).innerText =
-      currentTournament.location;
-
-
-    document.getElementById(
-      "detailVenue"
-    ).innerText =
-      currentTournament.venue;
-
-
-    document.getElementById(
-      "detailDate"
-    ).innerText =
-      currentTournament.date;
-
-
-    document.getElementById(
-      "detailDescription"
-    ).innerText =
-      currentTournament.description;
-
-
-    document.getElementById(
-      "joinPrice"
-    ).innerText =
-      currentTournament.fee;
-
-
-    document.getElementById(
-      "tournamentHero"
-    ).style.backgroundImage =
-
-      `linear-gradient(
-        to top,
-        var(--bg) 5%,
-        rgba(11,13,15,.2) 72%
-      ),
-      url("${currentTournament.image}")`;
-
-  }
-
-
-  function showTournamentTab(
-    tab,
-    button
-  ) {
-
-    [
-      "infoTab",
-      "scheduleTab",
-      "bracketTab",
-      "teamsTab"
-    ]
-    .forEach(id => {
-
-      document
-        .getElementById(id)
-        .classList.add("hidden");
-
-    });
-
-
-    document
-      .getElementById(tab + "Tab")
-      .classList.remove("hidden");
-
-
-    document
-      .querySelectorAll(".tab-button")
-      .forEach(btn =>
-        btn.classList.remove("active")
-      );
-
-
-    button.classList.add("active");
-
-  }
-
-
-  /* ================= JOIN ================= */
-
-
-  function openJoinModal() {
-
-    document.getElementById(
-      "joinTournamentName"
-    ).innerText =
-      currentTournament.name;
-
-
-    document.getElementById(
-      "modalPaymentPrice"
-    ).innerText =
-      currentTournament.fee;
-
-
-    openModal("joinModal");
-
-  }
-
-
-  function completeDemoRegistration() {
-
-    const payment = {
-
-      tournament:
-        currentTournament.name,
-
-      amount:
-        currentTournament.fee,
-
-      status:
-        "Paid",
-
-      date:
-        new Date()
-          .toLocaleDateString()
-
-    };
-
-
-    const payments =
-      JSON.parse(
-        localStorage.getItem(
-          "sportscupPayments"
-        ) || "[]"
-      );
-
-
-    payments.unshift(payment);
-
-
-    localStorage.setItem(
-      "sportscupPayments",
-      JSON.stringify(payments)
-    );
-
-
-    closeModal("joinModal");
-
-
-    document.getElementById(
-      "joinButton"
-    ).innerText =
-      "Registered ✓";
-
-
-    alert(
-      "Prototype registration completed."
-    );
-
-  }
-
-
-  /* ================= PROFILE ================= */
-
-
-  async function openPersonalDetails() {
-
-    let name =
-      localStorage.getItem(
-        "sportscupName"
-      ) || "";
-
-
-    let email =
-      localStorage.getItem(
-        "sportscupEmail"
-      ) || "";
-
-
-    if (sb) {
-
-      const { data } =
-        await sb.auth.getUser();
-
-
-      if (data.user) {
-
-        email =
-          data.user.email || email;
-
-        name =
-          data.user.user_metadata
-            ?.full_name ||
-          data.user.user_metadata
-            ?.name ||
-          name;
-
-      }
-
-    }
-
-
-    document.getElementById(
-      "personalName"
-    ).value =
-      name;
-
-
-    document.getElementById(
-      "personalEmail"
-    ).value =
-      email;
-
-
-    document.getElementById(
-      "personalBirthday"
-    ).value =
-      localStorage.getItem(
-        "sportscupBirthday"
-      ) || "";
-
-
-    document.getElementById(
-      "personalCity"
-    ).value =
-      localStorage.getItem(
-        "sportscupCity"
-      ) || "";
-
-
-    calculateAge();
-
-
-    openModal(
-      "personalModal"
-    );
-
-  }
-
-
-  function calculateAge() {
-
-    const value =
-      document.getElementById(
-        "personalBirthday"
-      ).value;
-
-
-    if (!value) {
-
-      document.getElementById(
-        "personalAge"
-      ).value =
-        "";
-
-      return;
-
-    }
-
-
-    const birth =
-      new Date(value);
-
-
-    const today =
-      new Date();
-
-
-    let age =
-      today.getFullYear() -
-      birth.getFullYear();
-
-
-    const monthDifference =
-      today.getMonth() -
-      birth.getMonth();
-
-
-    if (
-      monthDifference < 0 ||
-      (
-        monthDifference === 0 &&
-        today.getDate() <
-        birth.getDate()
-      )
-    ) {
-
-      age--;
-
-    }
-
-
-    document.getElementById(
-      "personalAge"
-    ).value =
-      age;
-
-  }
-
-
-  async function savePersonalDetails() {
-
-    const name =
-      document.getElementById(
-        "personalName"
-      ).value.trim();
-
-
-    const birthday =
-      document.getElementById(
-        "personalBirthday"
-      ).value;
-
-
-    const city =
-      document.getElementById(
-        "personalCity"
-      ).value.trim();
-
-
-    localStorage.setItem(
-      "sportscupName",
-      name
-    );
-
-
-    localStorage.setItem(
-      "sportscupBirthday",
-      birthday
-    );
-
-
-    localStorage.setItem(
-      "sportscupCity",
-      city
-    );
-
-
-    document.getElementById(
-      "profileName"
-    ).innerText =
-      name;
-
-
-    document.getElementById(
-      "helloName"
-    ).innerText =
-      name.split(" ")[0];
-
-
-    document.getElementById(
-      "profileAvatar"
-    ).innerText =
-      name.charAt(0).toUpperCase();
-
-
-    if (sb) {
-
-      await sb.auth.updateUser({
-
-        data: {
-          full_name: name,
-          birthday: birthday,
-          city: city
-        }
-
-      });
-
-    }
-
-
-    closeModal(
-      "personalModal"
-    );
-
-  }
-
-
-  function openPaymentHistory() {
-
-    const container =
-      document.getElementById(
-        "paymentHistory"
-      );
-
-
-    const payments =
-      JSON.parse(
-        localStorage.getItem(
-          "sportscupPayments"
-        ) || "[]"
-      );
-
-
-    if (!payments.length) {
-
-      container.innerHTML = `
-
-        <div class="payment-box">
-
-          <strong>
-            No payments yet
-          </strong>
-
-          <p
-            class="muted small"
-            style="margin-top:6px;">
-
-            Completed tournament payments
-            will appear here.
-
-          </p>
-
-        </div>
-
-      `;
-
-    }
-
-    else {
-
-      container.innerHTML =
-        payments
-        .map(payment => `
-
-          <div class="payment-box">
-
-            <strong>
-              ${payment.tournament}
-            </strong>
-
-            <div
-              style="
-                display:flex;
-                justify-content:space-between;
-                margin-top:12px;
-              ">
-
-              <span>
-                ${payment.amount}
-              </span>
-
-              <span
-                style="
-                  color:var(--green);
-                  font-weight:900;
-                ">
-
-                Paid ✓
-
-              </span>
-
-            </div>
-
-            <div
-              class="muted small"
-              style="margin-top:8px;">
-
-              ${payment.date}
-
-            </div>
-
-          </div>
-
-        `)
-        .join("");
-
-    }
-
-
-    openModal(
-      "paymentModal"
-    );
-
-  }
-
-
-  /* ================= MODAL ================= */
-
-
-  function openModal(id) {
-
-    document.getElementById(id)
-      .classList.remove("hidden");
-
-  }
-
-
-  function closeModal(id) {
-
-    document.getElementById(id)
-      .classList.add("hidden");
-
-  }
-
-
-  window.addEventListener(
-    "click",
-    function(event) {
-
-      if (
-        event.target.classList
-          .contains("modal-overlay")
-      ) {
-
-        event.target
-          .classList.add("hidden");
+        showMainApp();
 
       }
 
     }
   );
 
-
-  /* ================= STARTUP ================= */
-
-
-  async function initializeApp() {
-
-    if (!sb) {
-
-      /*
-      Supabase is not connected yet,
-      so login screen remains visible.
-      */
-
-      return;
-
-    }
+}
 
 
-    const {
-      data: { session }
-    } =
-      await sb.auth.getSession();
-
-
-    if (session) {
-
-      await loadSupabaseUser();
-
-      showMainApp();
-
-    }
-
-
-    sb.auth.onAuthStateChange(
-      async (
-        event,
-        session
-      ) => {
-
-        if (session) {
-
-          await loadSupabaseUser();
-
-          showMainApp();
-
-        }
-
-      }
-    );
-
-  }
-
-
-  initializeApp();
+initializeApp();
 
 </script>
 

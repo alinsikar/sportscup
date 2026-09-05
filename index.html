@@ -4999,5 +4999,1663 @@ initializeApp();
 
 </script>
 
+
+  <style>
+
+  /* =========================================
+     SPORTSCUP PATCH
+     ========================================= */
+
+  .friends-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .friends-add-button {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 1px solid var(--border);
+
+    background: var(--card);
+    color: white;
+
+    font-size: 28px;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .friend-list-title {
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+    margin: 28px 0 10px;
+  }
+
+
+  .add-friend-choice {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    padding: 16px;
+
+    margin-bottom: 11px;
+
+    cursor: pointer;
+  }
+
+
+  .add-friend-choice strong {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+
+  .add-friend-choice p {
+    color: var(--muted);
+
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+
+  .recommendation-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    padding: 12px;
+
+    margin-bottom: 9px;
+  }
+
+
+  .recommendation-avatar {
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--card2);
+
+    font-weight: 900;
+  }
+
+
+  .recommendation-info {
+    flex: 1;
+  }
+
+
+  .recommendation-info strong {
+    display: block;
+  }
+
+
+  .recommendation-info span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-top: 3px;
+  }
+
+
+  /* TEAMS */
+
+  .tournament-team-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+  }
+
+
+  .tournament-team-card.my-team {
+    border-color: var(--orange);
+  }
+
+
+  .team-card-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 9px;
+  }
+
+
+  .team-card-top h3 {
+    font-size: 18px;
+  }
+
+
+  .my-team-badge {
+    color: var(--orange);
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+  }
+
+
+  .team-capacity {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 12px;
+  }
+
+
+  .players-toggle {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+    color: white;
+
+    text-align: left;
+
+    padding: 4px 0;
+
+    font-weight: 800;
+  }
+
+
+  .player-list {
+    margin-top: 12px;
+
+    border-top: 1px solid var(--border);
+
+    padding-top: 10px;
+  }
+
+
+  .player-row {
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    border-bottom: 1px solid #24282f;
+  }
+
+
+  .player-row:last-child {
+    border-bottom: none;
+  }
+
+
+  .player-mini-avatar {
+    width: 31px;
+    height: 31px;
+
+    border-radius: 50%;
+
+    background: var(--card2);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+
+  .invite-team-friend-button {
+    width: 100%;
+
+    margin-top: 14px;
+
+    border: 1px solid var(--orange);
+
+    background: transparent;
+    color: var(--orange);
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    font-weight: 900;
+  }
+
+
+  .spots-left {
+    color: var(--orange);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    margin-top: 6px;
+  }
+
+</style>
+
+
+
+<!-- =========================================
+     ADD FRIEND MODAL
+     ========================================= -->
+
+<div
+  id="newFriendModal"
+  class="modal-overlay hidden"
+>
+
+  <div class="modal">
+
+    <button
+      class="modal-close"
+      onclick="closeModal('newFriendModal')"
+    >
+      ×
+    </button>
+
+    <h2>
+      Add Friends
+    </h2>
+
+    <p class="modal-description">
+      Find people you already know on SportsCup.
+    </p>
+
+
+    <div
+      class="add-friend-choice"
+      onclick="requestContactsAccess()"
+    >
+
+      <strong>
+        Find from Contacts
+      </strong>
+
+      <p>
+        SportsCup will ask which contacts you want to share
+        and recommend people who already use SportsCup.
+      </p>
+
+    </div>
+
+
+    <div
+      class="add-friend-choice"
+      onclick="showManualFriendSearch()"
+    >
+
+      <strong>
+        Search SportsCup
+      </strong>
+
+      <p>
+        Search someone manually by their name.
+      </p>
+
+    </div>
+
+
+    <div
+      id="manualFriendSearchArea"
+      class="hidden"
+      style="margin-top:18px"
+    >
+
+      <div class="field">
+
+        <label>
+          Name
+        </label>
+
+        <input
+          id="friendPopupSearch"
+          class="input"
+          placeholder="Search a friend..."
+        >
+
+      </div>
+
+
+      <button
+        class="primary-btn"
+        onclick="searchFriendFromPopup()"
+      >
+        Search
+      </button>
+
+
+      <div
+        id="friendPopupResults"
+        style="margin-top:15px"
+      ></div>
+
+    </div>
+
+
+    <div
+      id="contactRecommendationArea"
+      class="hidden"
+      style="margin-top:20px"
+    >
+
+      <div class="segment-title">
+        RECOMMENDED FOR YOU
+      </div>
+
+      <div
+        id="contactRecommendations"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================
+     TEAM FRIEND INVITE MODAL
+     ========================================= -->
+
+<div
+  id="tournamentInviteFriendModal"
+  class="modal-overlay hidden"
+>
+
+  <div class="modal">
+
+    <button
+      class="modal-close"
+      onclick="closeModal('tournamentInviteFriendModal')"
+    >
+      ×
+    </button>
+
+    <h2>
+      Invite a Friend
+    </h2>
+
+    <p class="modal-description">
+      Invite one of your SportsCup friends to your team.
+    </p>
+
+    <div
+      id="tournamentInviteFriendList"
+    ></div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   UI PATCH
+   ========================================================= */
+
+
+window.addEventListener(
+  "load",
+  function() {
+
+    /* FILTER EMOJIS */
+
+    const filterButtons =
+      document.querySelectorAll(
+        ".filter"
+      );
+
+
+    filterButtons.forEach(
+      button => {
+
+        const text =
+          button.innerText
+            .trim()
+            .toLowerCase();
+
+
+        if (
+          text.includes(
+            "all sports"
+          )
+        ) {
+
+          button.innerText =
+            "🏆 All Sports";
+
+        }
+
+
+        if (
+          text ===
+          "football"
+        ) {
+
+          button.innerText =
+            "⚽ Football";
+
+        }
+
+
+        if (
+          text ===
+          "padel"
+        ) {
+
+          button.innerText =
+            "🎾 Padel";
+
+        }
+
+      }
+    );
+
+
+    /* CALENDAR TITLE */
+
+    const calendarTitle =
+      document.querySelector(
+        "#calendarScreen .page-title"
+      );
+
+
+    if (
+      calendarTitle
+    ) {
+
+      calendarTitle.innerText =
+        "Calendar";
+
+    }
+
+
+    /* FRIENDS SCREEN */
+
+    patchFriendsScreen();
+
+
+    /* TEAMS */
+
+    renderTournamentTeams();
+
+  }
+);
+
+
+
+function patchFriendsScreen() {
+
+  const screen =
+    document.getElementById(
+      "friendsScreen"
+    );
+
+
+  if (!screen) {
+    return;
+  }
+
+
+  /*
+  Hide old search / team sections.
+  Friends main screen will now only show
+  accepted friends.
+  */
+
+  const oldSearch =
+    screen.querySelector(
+      ".search-row"
+    );
+
+
+  if (oldSearch) {
+    oldSearch.style.display =
+      "none";
+  }
+
+
+  const contactsButton =
+    screen.querySelector(
+      ".contacts-button"
+    );
+
+
+  if (contactsButton) {
+    contactsButton.style.display =
+      "none";
+  }
+
+
+  const privacy =
+    screen.querySelector(
+      ".privacy-note"
+    );
+
+
+  if (privacy) {
+    privacy.style.display =
+      "none";
+  }
+
+
+  const segmentTitles =
+    screen.querySelectorAll(
+      ".segment-title"
+    );
+
+
+  segmentTitles.forEach(
+    title => {
+
+      const text =
+        title.innerText
+          .trim()
+          .toUpperCase();
+
+
+      if (
+        text !==
+        "MY FRIENDS"
+      ) {
+
+        title.style.display =
+          "none";
+
+      }
+
+    }
+  );
+
+
+  [
+    "friendSearchResults",
+    "friendRequests",
+    "myTeam",
+    "teamInvites"
+  ].forEach(
+    id => {
+
+      const element =
+        document.getElementById(
+          id
+        );
+
+
+      if (element) {
+
+        element.style.display =
+          "none";
+
+      }
+
+    }
+  );
+
+
+  /*
+  Replace top area with Friends + button
+  */
+
+  const title =
+    screen.querySelector(
+      ".page-title"
+    );
+
+
+  if (
+    title &&
+    !document.getElementById(
+      "friendsPlusButton"
+    )
+  ) {
+
+    const wrapper =
+      document.createElement(
+        "div"
+      );
+
+
+    wrapper.className =
+      "friends-topbar";
+
+
+    title.parentNode.insertBefore(
+      wrapper,
+      title
+    );
+
+
+    wrapper.appendChild(
+      title
+    );
+
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+
+    button.id =
+      "friendsPlusButton";
+
+
+    button.className =
+      "friends-add-button";
+
+
+    button.innerHTML =
+      "+";
+
+
+    button.onclick =
+      function() {
+
+        openModal(
+          "newFriendModal"
+        );
+
+      };
+
+
+    wrapper.appendChild(
+      button
+    );
+
+  }
+
+
+  /*
+  Rename friends list segment
+  */
+
+  const friendTitles =
+    screen.querySelectorAll(
+      ".segment-title"
+    );
+
+
+  friendTitles.forEach(
+    element => {
+
+      if (
+        element.innerText
+          .trim()
+          .toUpperCase() ===
+        "MY FRIENDS"
+      ) {
+
+        element.style.display =
+          "";
+
+        element.innerText =
+          "FRIENDS";
+
+      }
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   ADD FRIEND POPUP
+   ========================================================= */
+
+
+function showManualFriendSearch() {
+
+  document.getElementById(
+    "manualFriendSearchArea"
+  ).classList.remove(
+    "hidden"
+  );
+
+}
+
+
+
+async function searchFriendFromPopup() {
+
+  const input =
+    document.getElementById(
+      "friendPopupSearch"
+    );
+
+
+  const query =
+    input.value.trim();
+
+
+  const results =
+    document.getElementById(
+      "friendPopupResults"
+    );
+
+
+  if (
+    !sb ||
+    !currentUser
+  ) {
+
+    results.innerHTML =
+
+      `<div class="muted small">
+        Please log in first.
+      </div>`;
+
+    return;
+
+  }
+
+
+  if (
+    query.length < 2
+  ) {
+
+    results.innerHTML =
+
+      `<div class="muted small">
+        Type at least two characters.
+      </div>`;
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from(
+        "profiles"
+      )
+      .select(
+        "id,display_name,first_name,last_name,city"
+      )
+      .or(
+        `display_name.ilike.%${query}%,first_name.ilike.%${query}%,last_name.ilike.%${query}%`
+      )
+      .neq(
+        "id",
+        currentUser.id
+      )
+      .limit(
+        10
+      );
+
+
+  if (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+
+    results.innerHTML =
+
+      `<div class="muted small">
+        Search could not be completed.
+      </div>`;
+
+    return;
+
+  }
+
+
+  if (
+    !data ||
+    data.length === 0
+  ) {
+
+    results.innerHTML =
+
+      `<div class="muted small">
+        No SportsCup users found.
+      </div>`;
+
+    return;
+
+  }
+
+
+  results.innerHTML =
+    data
+      .map(
+        person => {
+
+
+          const name =
+
+            person.display_name ||
+
+            `${person.first_name || ""}
+            ${person.last_name || ""}`
+              .trim() ||
+
+            "SportsCup member";
+
+
+          return `
+
+            <div class="recommendation-row">
+
+              <div class="recommendation-avatar">
+
+                ${name
+                  .charAt(0)
+                  .toUpperCase()}
+
+              </div>
+
+              <div class="recommendation-info">
+
+                <strong>
+                  ${name}
+                </strong>
+
+                <span>
+                  ${person.city || "SportsCup"}
+                </span>
+
+              </div>
+
+              <button
+                class="small-action fill"
+                onclick="sendFriendRequest('${person.id}')"
+              >
+                Add
+              </button>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+
+/* =========================================================
+   CONTACT RECOMMENDATIONS
+   ========================================================= */
+
+
+async function requestContactsAccess() {
+
+  /*
+  On supported browsers this opens the
+  operating system's contact picker.
+
+  The user chooses exactly which contacts
+  SportsCup receives.
+  */
+
+
+  if (
+    !("contacts" in navigator) ||
+    !navigator.contacts ||
+    !navigator.contacts.select
+  ) {
+
+    alert(
+      "Contact access is not supported by this browser yet. You can search friends manually."
+    );
+
+
+    showManualFriendSearch();
+
+    return;
+
+  }
+
+
+  try {
+
+    const properties =
+      await navigator.contacts
+        .getProperties();
+
+
+    const wanted =
+      [
+        "name",
+        "tel"
+      ].filter(
+        property =>
+          properties.includes(
+            property
+          )
+      );
+
+
+    const contacts =
+      await navigator.contacts
+        .select(
+          wanted,
+          {
+            multiple:
+              true
+          }
+        );
+
+
+    await findSportsCupContacts(
+      contacts
+    );
+
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+
+async function findSportsCupContacts(
+  contacts
+) {
+
+  const area =
+    document.getElementById(
+      "contactRecommendationArea"
+    );
+
+
+  const container =
+    document.getElementById(
+      "contactRecommendations"
+    );
+
+
+  area.classList.remove(
+    "hidden"
+  );
+
+
+  if (
+    !sb
+  ) {
+
+    container.innerHTML =
+
+      `<div class="muted small">
+        Supabase must be connected first.
+      </div>`;
+
+    return;
+
+  }
+
+
+  /*
+  IMPORTANT:
+
+  For real matching, profiles will need a
+  verified phone_e164 column.
+
+  Until that backend field is added,
+  selected contacts are shown as possible
+  recommendations.
+  */
+
+
+  if (
+    !contacts ||
+    contacts.length === 0
+  ) {
+
+    container.innerHTML =
+
+      `<div class="muted small">
+        No contacts selected.
+      </div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    contacts
+      .map(
+        contact => {
+
+
+          const name =
+            contact.name?.[0] ||
+            "Contact";
+
+
+          return `
+
+            <div class="recommendation-row">
+
+              <div class="recommendation-avatar">
+
+                ${name
+                  .charAt(0)
+                  .toUpperCase()}
+
+              </div>
+
+              <div class="recommendation-info">
+
+                <strong>
+                  ${name}
+                </strong>
+
+                <span>
+                  Checking SportsCup...
+                </span>
+
+              </div>
+
+              <button
+                class="small-action"
+                onclick="searchSuggestedContact('${escapeContactName(name)}')"
+              >
+                Find
+              </button>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+
+function searchSuggestedContact(
+  name
+) {
+
+  document.getElementById(
+    "friendPopupSearch"
+  ).value =
+    name;
+
+
+  showManualFriendSearch();
+
+
+  searchFriendFromPopup();
+
+}
+
+
+
+function escapeContactName(
+  name
+) {
+
+  return String(
+    name
+  )
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    );
+
+}
+
+
+
+/* =========================================================
+   TOURNAMENT TEAMS
+   ========================================================= */
+
+
+const tournamentTeamsDemo = [
+
+  {
+
+    id:
+      "orange",
+
+    name:
+      "Team Orange",
+
+    mine:
+      true,
+
+    maxPlayers:
+      11,
+
+    players: [
+
+      "Alin Sikar",
+      "Mert Kaya",
+      "Can Demir",
+      "Emre Yılmaz",
+      "Jonas de Vries"
+
+    ]
+
+  },
+
+
+  {
+
+    id:
+      "black",
+
+    name:
+      "Team Black",
+
+    mine:
+      false,
+
+    maxPlayers:
+      11,
+
+    players: [
+
+      "Lucas Jansen",
+      "Sem Bakker",
+      "Noah Visser",
+      "Daan Meijer",
+      "Finn Smit",
+      "Milan de Boer",
+      "Ryan Mulder"
+
+    ]
+
+  },
+
+
+  {
+
+    id:
+      "white",
+
+    name:
+      "Team White",
+
+    mine:
+      false,
+
+    maxPlayers:
+      11,
+
+    players: [
+
+      "Adam Koster",
+      "Olivier Vos",
+      "Sam Bos",
+      "Max Peters"
+
+    ]
+
+  }
+
+];
+
+
+
+function renderTournamentTeams() {
+
+  const container =
+    document.getElementById(
+      "teamsTab"
+    );
+
+
+  if (
+    !container
+  ) {
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+
+    tournamentTeamsDemo
+      .map(
+        team => {
+
+
+          const spotsLeft =
+
+            team.maxPlayers -
+            team.players.length;
+
+
+          return `
+
+            <div
+              class="
+                tournament-team-card
+                ${team.mine ? "my-team" : ""}
+              "
+            >
+
+              <div class="team-card-top">
+
+                <h3>
+                  ${team.name}
+                </h3>
+
+                ${
+                  team.mine
+
+                    ? `<span class="my-team-badge">
+                        YOUR TEAM
+                       </span>`
+
+                    : ""
+                }
+
+              </div>
+
+
+              <div class="team-capacity">
+
+                ${team.players.length}
+                /
+                ${team.maxPlayers}
+                players
+
+              </div>
+
+
+              <button
+                class="players-toggle"
+                onclick="toggleTeamPlayers('${team.id}')"
+              >
+
+                View players
+                ›
+
+              </button>
+
+
+              <div
+                id="players-${team.id}"
+                class="player-list hidden"
+              >
+
+                ${team.players
+                  .map(
+                    player => `
+
+                      <div class="player-row">
+
+                        <div class="player-mini-avatar">
+
+                          ${player
+                            .charAt(0)
+                            .toUpperCase()}
+
+                        </div>
+
+                        <span>
+                          ${player}
+                        </span>
+
+                      </div>
+
+                    `
+                  )
+                  .join("")
+                }
+
+
+                ${
+                  team.mine &&
+                  spotsLeft > 0
+
+                    ? `
+
+                      <div class="spots-left">
+
+                        ${spotsLeft}
+                        spots remaining
+
+                      </div>
+
+
+                      <button
+                        class="invite-team-friend-button"
+                        onclick="openTournamentFriendInvite()"
+                      >
+
+                        + Invite a Friend
+
+                      </button>
+
+                    `
+
+                    : ""
+                }
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+
+function toggleTeamPlayers(
+  teamId
+) {
+
+  const list =
+    document.getElementById(
+      "players-" +
+      teamId
+    );
+
+
+  if (
+    !list
+  ) {
+
+    return;
+
+  }
+
+
+  list.classList.toggle(
+    "hidden"
+  );
+
+}
+
+
+
+/* =========================================================
+   INVITE EXISTING FRIEND TO YOUR TEAM
+   ========================================================= */
+
+
+function openTournamentFriendInvite() {
+
+  const container =
+    document.getElementById(
+      "tournamentInviteFriendList"
+    );
+
+
+  /*
+  myFriendsCache exists in the fuller
+  friends backend version.
+
+  If it's not available yet, show a demo
+  message.
+  */
+
+
+  if (
+    typeof myFriendsCache !==
+      "undefined" &&
+    myFriendsCache &&
+    myFriendsCache.length > 0
+  ) {
+
+
+    container.innerHTML =
+
+      myFriendsCache
+        .map(
+          friend => {
+
+
+            const name =
+
+              friend.display_name ||
+
+              `${friend.first_name || ""}
+              ${friend.last_name || ""}`
+                .trim() ||
+
+              "Friend";
+
+
+            return `
+
+              <div class="recommendation-row">
+
+                <div class="recommendation-avatar">
+
+                  ${name
+                    .charAt(0)
+                    .toUpperCase()}
+
+                </div>
+
+                <div class="recommendation-info">
+
+                  <strong>
+                    ${name}
+                  </strong>
+
+                  <span>
+                    SportsCup friend
+                  </span>
+
+                </div>
+
+                <button
+                  class="small-action fill"
+                  onclick="sendTournamentTeamInvite('${friend.id}')"
+                >
+
+                  Invite
+
+                </button>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+  }
+
+  else {
+
+
+    container.innerHTML =
+
+      `<div class="muted small">
+
+        Add friends first.
+        Your accepted SportsCup friends
+        will appear here.
+
+      </div>`;
+
+  }
+
+
+  openModal(
+    "tournamentInviteFriendModal"
+  );
+
+}
+
+
+
+async function sendTournamentTeamInvite(
+  friendId
+) {
+
+  /*
+  When tournament teams are fully connected
+  to Supabase, this will insert into
+  team_invites.
+
+  For now this gives the correct UI flow.
+  */
+
+
+  if (
+    typeof sb ===
+      "undefined" ||
+    !sb
+  ) {
+
+    alert(
+      "Supabase must be connected."
+    );
+
+    return;
+
+  }
+
+
+  /*
+  If the existing team system has myTeamCache
+  available, use it.
+  */
+
+
+  if (
+    typeof myTeamCache !==
+      "undefined" &&
+    myTeamCache &&
+    myTeamCache.id
+  ) {
+
+
+    const {
+      error
+    } =
+      await sb
+        .from(
+          "team_invites"
+        )
+        .insert({
+
+          team_id:
+            myTeamCache.id,
+
+          invited_by:
+            currentUser.id,
+
+          invited_user:
+            friendId,
+
+          status:
+            "pending"
+
+        });
+
+
+    if (
+      error
+    ) {
+
+      alert(
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    alert(
+      "Team invitation sent."
+    );
+
+
+    closeModal(
+      "tournamentInviteFriendModal"
+    );
+
+
+  }
+
+  else {
+
+
+    alert(
+      "The team invitation screen is ready. Next we need to connect tournament teams to the database."
+    );
+
+  }
+
+}
+
+</script>
+
 </body>
 </html>
